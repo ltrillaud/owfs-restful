@@ -1,0 +1,26 @@
+{
+  "name": "owfs-restful",
+  "version": "1.0.0",
+  "description": "OWFS Restful server written in Typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ltrillaud/owfs-restful.git"
+  },
+  "keywords": [
+    "OWFS",
+    "OneWire",
+    "Dallas",
+    "Semiconductor",
+    "Typescript"
+  ],
+  "author": "Laurent Trillaud",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ltrillaud/owfs-restful/issues"
+  },
+  "homepage": "https://github.com/ltrillaud/owfs-restful#readme"
+}
