@@ -1,5 +1,6 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
+import * as nconf from 'nconf';
 import * as owfs from './owfs';
 
 // import * as path from 'path';
@@ -80,8 +81,19 @@ class Server {
     }
 }
 
+// --- get configuration, in order, from arguments, environment and default
+nconf.argv().env().defaults({
+    port: 8080,
+    profile: './profiles/default.js'
+});
+
+// --- load the given profile
+console.log('  owfsRest.ts use profile file (' + nconf.get('profile') + ')');
+const profile = require(nconf.get('profile'));
+
+const port: number = nconf.get('port');
 const server = Server.bootstrap();
 export = server.app;
-server.app.listen(3000, () => {
-    console.log('  owfsRest.ts listening on port 3000!');
+server.app.listen( port, () => {
+    console.log('  owfsRest.ts listening on port ' + port + '!');
 });
