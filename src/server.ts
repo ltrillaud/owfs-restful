@@ -1,5 +1,6 @@
 import { createExpressServer, } from 'routing-controllers';
 import { Application } from 'express';
+import { AppliancesModel } from './models/appliances.model';
 
 import * as nconf from 'nconf';
 import * as owfs from './owfs';
@@ -19,8 +20,6 @@ export class Server {
         this.app = createExpressServer();
         this.parseOptions();
         this.config();
-
-        this.owfsClient = new owfs.Client({ host: '192.168.1.2' });
     }
 
     private parseOptions() {
@@ -40,5 +39,17 @@ export class Server {
         // ---  configure middleware
         const morgan = require('morgan');
         this.app.use(morgan(nconf.get('morganPredefinedFormat')));
+    }
+
+    public setup() {
+        // --- prepare OWFS client
+        this.owfsClient = new owfs.Client({ host: '192.168.1.2' });
+
+        // --- setup Appliances
+        AppliancesModel.register( this.profile.appliance2proxy);
+    }
+
+    public tearOff() {
+
     }
 }

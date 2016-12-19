@@ -9,6 +9,10 @@
             "type": "node2",
             "request": "launch",
             "program": "${workspaceRoot}/src/app.js",
+            "args": [
+                "--profile",
+                "./profiles/home.js"
+            ],
             "cwd": "${workspaceRoot}",
             "outFiles": [],
             "sourceMaps": true

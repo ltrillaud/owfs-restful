@@ -1,30 +1,26 @@
-import { JsonController, Get } from 'routing-controllers';
+import { JsonController, Get, Put, Param, Body } from 'routing-controllers';
 import { server } from '../app';
 
 @JsonController('/raw')
 export class RawController {
 
     @Get('/')
-    showUsage() {
+    all() {
         return server.owfsClient.list('/');
     }
 
+    @Get('/:id')
+    list( @Param('id') id: string) {
+        return server.owfsClient.list('/' + id);
+    }
+
+    @Get('/:id/:att')
+    read( @Param('id') id: string, @Param('att') att: string) {
+        return server.owfsClient.read('/' + id + '/' + att);
+    }
+
+    @Put('/:id/:att')
+    write( @Param('id') id: string, @Param('att') att: string, @Body('value') value : any) {
+        return server.owfsClient.write('/' + id + '/' + att, value);
+    }
 };
-
-// this.app.get('/:id', (req: express.Request, res: express.Response) => {
-//     this.owfsClient.list('/' + req.params.id).then((result: any) => {
-//         res.json(result);
-//     });
-// });
-// this.app.get('/:id/:type', (req: express.Request, res: express.Response) => {
-//     this.owfsClient.read('/' + req.params.id + '/' + req.params.type).then((result: any) => {
-//         res.json(result);
-//     });
-// });
-// this.app.put('/:id/:type', (req: express.Request, res: express.Response) => {
-//     const value: any = req.body;
-//     this.owfsClient.write('/' + req.params.id + '/' + req.params.type, value).then((result: any) => {
-//         res.json(result);
-//     });
-// });
-
