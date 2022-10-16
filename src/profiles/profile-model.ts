@@ -1,0 +1,11 @@
+export interface IProfileCa {
+  key: string
+  cert: string
+}
+
+export interface IBaseProfile {
+  prod: boolean
+  morgan: string
+  port: number
+  ca: IProfileCa
+}
