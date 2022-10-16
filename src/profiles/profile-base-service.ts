@@ -19,7 +19,6 @@ export class ProfileBaseService<P extends IBaseProfile> {
 
     // --- allow self signed certificate in debug mode
     if (!this.profile.prod) {
-      // tslint:disable-next-line: no-string-literal
       process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
     }
 

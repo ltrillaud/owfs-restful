@@ -9,3 +9,8 @@ export interface IBaseProfile {
   port: number
   ca: IProfileCa
 }
+
+export interface IProfile extends IBaseProfile {
+  owServerHost: string
+  owServerPort: number
+}

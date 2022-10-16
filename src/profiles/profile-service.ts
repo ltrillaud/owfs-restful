@@ -1,8 +1,6 @@
 import { Service } from 'typedi'
-import { IBaseProfile } from './profile-model'
 import { ProfileBaseService } from './profile-base-service'
-
-export interface IProfile extends IBaseProfile {}
+import { IProfile } from './profile-model'
 
 @Service()
 export class ProfileService extends ProfileBaseService<IProfile> {
