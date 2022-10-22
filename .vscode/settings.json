@@ -8,6 +8,8 @@
     }
   },
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnPaste": true
+  "editor.defaultFormatter": "vscode.typescript-language-features",
+  "editor.formatOnPaste": true,
+  "eslint.format.enable": true,
+  "eslint.validate": [ "typescript"],
 }
