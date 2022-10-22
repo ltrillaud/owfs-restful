@@ -14,6 +14,7 @@ import { Express } from 'express'
 import { version } from '../package.json'
 import { c } from './console'
 import { ProfileService } from './profiles/profile-service'
+import { AplApiService } from './api/apl-api-service'
 
 // --- prepare dependency injection
 routingCtrl.useContainer(Container)
@@ -23,7 +24,7 @@ class AppService {
   private readonly app: Express
   private readonly httpServer: https.Server
 
-  constructor(private readonly profileService: ProfileService) {
+  constructor(private readonly profileService: ProfileService, private readonly applianceService: AplApiService) {
     console.log(c(this), 'constructor')
 
     // --- create the express application
@@ -68,6 +69,8 @@ class AppService {
         `owfs_restful V${currentVersion} listening on https://0.0.0.0:${this.profileService.profile.port}`
       )
     })
+
+    await this.applianceService.register()
   }
 }
 
@@ -77,5 +80,5 @@ Container.get(AppService)
     console.log(c(this), 'started ok')
   })
   .catch((reason) => {
-    console.log(c(this), 'started ko')
+    console.log(c(this), 'started ko', reason)
   })

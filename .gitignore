@@ -2,5 +2,5 @@ node_modules/
 src/**/*.js
 src/**/*.js.map
 src/**/*.d.ts
-src/profiles/home.ts
+src/profiles/appliances/home.ts
 npm-debug.log

@@ -41,11 +41,14 @@ export interface IOwResponse {
   payload: string // Either just a filename path (for  directory element), or data read
 }
 
+type OwHeaderType = 'version' | 'payload' | 'ret' | 'controlflags' | 'size' | 'offset'
+
 @Service()
 export class RawApiService {
-  headers: string[] = ['version', 'payload', 'ret', 'controlflags', 'size', 'offset']
+  headerProps: OwHeaderType[] = ['version', 'payload', 'ret', 'controlflags', 'size', 'offset']
+  headerLength = 24
 
-  constructor(private readonly profileService: ProfileService) {}
+  constructor(private readonly profileService: ProfileService) { }
 
   // return array of dir
   async list(path: string): Promise<IListResponse> {
@@ -72,6 +75,7 @@ export class RawApiService {
     return await new Promise<IOwResponse>((resolve, reject) => {
       console.log(c(this), `send path(${path}), type(${type}), value(${value})`)
       let response: IOwResponse
+      const buffers: Buffer[] = []
       const socket = new net.Socket()
 
       socket.on('error', (error: any) => {
@@ -80,30 +84,59 @@ export class RawApiService {
 
       // finished receiving
       socket.on('end', () => {
-        if (response.header.ret < 0) {
-          throw new Error(response.header.ret.toString())
+        let buffer = Buffer.concat(buffers)
+        while (buffer.length >= this.headerLength) {
+          const header: IOwHeaderResponse = { version: 0, controlflags: 0, offset: 0, payload: 0, ret: 0, size: 0 }
+          for (let i = 0; i < this.headerProps.length; i++) {
+            const prop = this.headerProps[i]
+            header[prop] = this.ntohl(buffer, i * 4)
+          }
+          console.log('Extracted header', header)
+          if (header.ret < 0) {
+            const err = new Error(`Communication Error. Received(${header.ret}) `)
+            // FIXME: remove this in version 1.0.0
+            // err.msg = err.message
+            // err.header = header
+            // err.options = options
+            reject(err)
+          }
+          if (header.payload > 0) {
+            const payload = buffer.slice(this.headerLength, this.headerLength + header.payload).toString('utf8')
+            console.log('Extracted payload', payload)
+            response = { header, payload }
+            break
+          } else {
+            response = { header, payload: '' }
+            buffer = buffer.slice(this.headerLength)
+          }
         }
         resolve(response)
+        // if (response.header.ret < 0) {
+        //   reject(new Error(response.header.ret.toString()))
+        // }
+        // resolve(response)
       })
 
       // receive data
-      socket.on('data', (data: any) => {
-        let j: number = 0
-        const chunk: number = 4
-        const header: any = {}
-        for (let i = 0; i < 24; i += chunk) {
-          const tmp = data.slice(i, i + chunk)
-          const value = this.ntohl(tmp)
-          header[this.headers[j]] = value
-          j++
-        }
-        response = {
-          header,
-          payload: data.slice(24).toString('utf8'),
-        }
-        console.log(c(this), `send path(${path}) ondata`, response)
-      })
+      socket.on('data', (buffer: Buffer) => {
+        buffers.push(buffer)
 
+        // buffer = Buffer.concat([buffer, data])
+        // let j: number = 0
+        // const chunk: number = 4
+        // const header: any = {}
+        // for (let i = 0; i < 24; i += chunk) {
+        //   const tmp = data.subarray(i, i + chunk)
+        //   const value = this.ntohl(tmp)
+        //   header[this.headers[j]] = value
+        //   j++
+        // }
+        // response = {
+        //   header,
+        //   payload: data.subarray(24).toString('utf8'),
+        // }
+        console.log(c(this), `send path(${path}) ondata len(${buffer.byteLength})`)
+      })
       // send stuff
       socket.connect(this.profileService.profile.owServerPort, this.profileService.profile.owServerHost, () => {
         let msg: any[] = []
@@ -131,7 +164,7 @@ export class RawApiService {
     return [(n & 0xff000000) >>> 24, (n & 0x00ff0000) >>> 16, (n & 0x0000ff00) >>> 8, (n & 0x000000ff) >>> 0]
   }
 
-  private ntohl(b: number[]): number {
-    return ((0xff & b[0]) << 24) | ((0xff & b[1]) << 16) | ((0xff & b[2]) << 8) | (0xff & b[3])
+  private ntohl(b: Buffer, i: number): number {
+    return ((0xff & b[i]) << 24) | ((0xff & b[i + 1]) << 16) | ((0xff & b[i + 2]) << 8) | (0xff & b[i + 3])
   }
 }

@@ -5,6 +5,7 @@ import { version } from '../../package.json'
 export interface IRootResult {
   app: string
   version: string
+  usages: string[]
 }
 
 @Service()
@@ -17,7 +18,7 @@ export class RootApiService {
   }
 
   public getRoot(): IRootResult {
-    return { app: 'owfs_restful', version }
+    return { app: 'owfs_restful', version, usages: ['/raw/**', '/dev/**', '/apl/**'] }
   }
 
   public getAlive(): boolean {
