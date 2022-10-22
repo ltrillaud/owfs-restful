@@ -48,6 +48,7 @@ export class RawApiService {
   headerProps: OwHeaderType[] = ['version', 'payload', 'ret', 'controlflags', 'size', 'offset']
   headerLength = 24
 
+  // eslint-disable-next-line prettier/prettier
   constructor(private readonly profileService: ProfileService) { }
 
   // return array of dir

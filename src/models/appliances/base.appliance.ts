@@ -1,3 +1,4 @@
+import { IWriteRequest } from '../../api/apl-api-controller'
 import { IAppliance } from '../../api/apl-api-service'
 import { BaseDevice } from '../devices/base.device'
 import { OwfsDevice } from '../devices/owfs/owfs.device'
@@ -23,10 +24,10 @@ export abstract class BaseAppliance {
   }
 
   public async read(): Promise<{ [index: string]: string }> {
-    return await Promise.resolve({ nobe: 'not yet implemented' })
+    return await Promise.resolve({ none: 'not yet implemented' })
   }
 
-  public async update(): Promise<any[]> {
+  public async update(body: IWriteRequest): Promise<any[]> {
     return await Promise.resolve(['not yet implemented'])
   }
 

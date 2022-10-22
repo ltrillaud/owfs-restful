@@ -6,9 +6,13 @@ export interface IDeviceModel {
 }
 
 export class BaseDevice {
-  constructor(public id: string, public device: IDeviceModel) {}
+  constructor(public id: string, public device: IDeviceModel) { }
 
   async read(): Promise<string> {
+    return await Promise.resolve('not implemented')
+  }
+
+  async write(value: string): Promise<string> {
     return await Promise.resolve('not implemented')
   }
 }

@@ -46,4 +46,13 @@ export class OwfsDevice extends BaseDevice {
     }
     return output
   }
+
+  async write(value: string): Promise<string> {
+    const response = await this.rawApiService.write(
+      `/${this.device.id}/${OwfsDevice.family2defaultPath[this.owId.family]}`,
+      value
+    )
+    console.log(`>>> owFsDevice write response`, response)
+    return 'ok'
+  }
 }

@@ -2,14 +2,14 @@ import { JsonController, Get, Put, Param, Body } from 'routing-controllers'
 import { Service } from 'typedi'
 import { AplApiService, IApplianceResponse, IAppliancesResponse } from './apl-api-service'
 
-interface IWriteRequest {
+export interface IWriteRequest {
   value: string
 }
 
 @JsonController('/apl')
 @Service()
 export class AplApiController {
-  constructor(private readonly aplApiService: AplApiService) {}
+  constructor(private readonly aplApiService: AplApiService) { }
 
   @Get('/')
   all(): IAppliancesResponse {
@@ -23,6 +23,6 @@ export class AplApiController {
 
   @Put('/:apl')
   async write(@Param('apl') apl: string, @Body() body: IWriteRequest): Promise<any[]> {
-    return await this.aplApiService.appliances[apl].update()
+    return await this.aplApiService.appliances[apl].update(body)
   }
 }

@@ -1,12 +1,60 @@
+import { IWriteRequest } from '../../api/apl-api-controller'
 import { BaseAppliance } from './base.appliance'
 
-type HeaterMode = 'E' | '1' | '2' | 'C'
+type HeaterActionType = 'E' | '1' | '2' | 'C'
 
 export class HeaterAppliance extends BaseAppliance {
-  private readonly mode: HeaterMode = 'E'
+  private readonly fiveMins = 5 * 60 * 1000
+  private mode: HeaterActionType = 'E'
+  private longInterval: NodeJS.Timer | null = null
+  private shortInterval: NodeJS.Timer | null = null
 
-  get(): { mode: HeaterMode } {
-    // --- return the current mode
-    return { mode: this.mode }
+  public async update(body: IWriteRequest): Promise<any[]> {
+    if (Object.prototype.hasOwnProperty.call(this.devices, 'PIO')) {
+
+      const device = this.devices.PIO
+      if (this.longInterval !== null) {
+        clearInterval(this.longInterval)
+        this.longInterval = null
+      }
+      if (this.shortInterval !== null) {
+        clearInterval(this.shortInterval)
+        this.shortInterval = null
+      }
+
+      switch (body.value) {
+        case 'E':
+          this.mode = 'E'
+          await device.write('0')
+          break
+        case '1':
+          this.mode = '1'
+          await device.write('1')
+          setTimeout(async (): Promise<void> => {
+            // this.longInterval = setInterval(async () => {
+            //   const response = await device.write('0')
+            // }, this.fiveMins)
+            await device.write('0')
+            return
+          }, 3000)
+          this.shortInterval = setInterval(async () => {
+            await device.write('1')
+          }, this.fiveMins)
+          break
+        case '2':
+          this.mode = '2'
+          break
+        case 'C':
+          this.mode = 'C'
+          await device.write('1')
+          break
+        default:
+          throw new Error(`Heater action must be 'E' to economy, 'C' to confort, '1', eco1 or '2' to eco2`)
+      }
+    } else {
+      throw new Error(`Action(PIO) doesn't exist in appliance(${this.type}) `)
+    }
+
+    return await Promise.resolve(['ok'])
   }
 }
