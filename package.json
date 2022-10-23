@@ -22,7 +22,11 @@
   },
   "homepage": "https://github.com/ltrillaud/owfs-restful#readme",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "nodemon",
+    "watch:app": "./node_modules/.bin/tsc --watch",
+    "build:app": "rm -r ./dist && ./node_modules/.bin/tsc",
+    "release": "standard-version -a && git push --follow-tags",
+    "pack:app": "npm pack"
   },
   "nodemonConfig": {
     "ignore": [
@@ -35,6 +39,10 @@
     },
     "ext": "js,json,ts"
   },
+  "files": [
+    "dist/**/*",
+    "src/assets/"
+  ],
   "dependencies": {
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
@@ -60,7 +68,8 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
-    "prettier": "^2.7.1",
+    "nodemon": "^2.0.20",
+    "standard-version": "^9.5.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   },

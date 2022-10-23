@@ -36,16 +36,16 @@ export interface IApplianceResponse {
 export class AplApiService {
   public appliances: { [index: string]: BaseAppliance } = {}
 
-  constructor(private readonly profileService: ProfileService) {}
+  constructor (private readonly profileService: ProfileService) {}
 
-  private static proxy2class(proxy: string): string {
+  private static proxy2class (proxy: string): string {
     return proxy.charAt(0).toUpperCase() + proxy.substring(1) + 'Appliance'
   }
 
-  public async register(): Promise<void> {
+  public async register (): Promise<void> {
     const applianceLibPath = path.join(
       '../profiles/appliances',
-      `${this.profileService.profile.appliance2proxyName}.js`
+      `${this.profileService.profile.appliance2proxyName}.ts`
     )
     const app = await import(applianceLibPath)
     const appliance2proxy: IAppliances2proxy = app.appliance2proxy
@@ -71,7 +71,7 @@ export class AplApiService {
     }
   }
 
-  public getAll(): IAppliancesResponse {
+  public getAll (): IAppliancesResponse {
     const result: any = {}
     for (const [key, val] of Object.entries(this.appliances)) {
       result[key] = val.type
@@ -79,7 +79,7 @@ export class AplApiService {
     return result
   }
 
-  public async getOne(apl: string): Promise<IApplianceResponse> {
+  public async getOne (apl: string): Promise<IApplianceResponse> {
     return await this.appliances[apl].read()
   }
 }

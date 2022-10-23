@@ -11,7 +11,7 @@ export class HeaterAppliance extends BaseAppliance {
   private longInterval: NodeJS.Timer | null = null
   private shortInterval: NodeJS.Timer | null = null
 
-  public async update(body: IWriteRequest): Promise<any[]> {
+  public async update (body: IWriteRequest): Promise<any[]> {
     if (Object.prototype.hasOwnProperty.call(this.devices, 'PIO')) {
       const device = this.devices.PIO
 
@@ -61,7 +61,7 @@ export class HeaterAppliance extends BaseAppliance {
     return await Promise.resolve(['ok'])
   }
 
-  private async initInterval(action: HeaterActionType, device: BaseDevice): Promise<void> {
+  private async initInterval (action: HeaterActionType, device: BaseDevice): Promise<void> {
     this.shortInterval = setInterval(async () => {
       await device.write('0')
     }, this.fiveMins)
