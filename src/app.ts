@@ -15,6 +15,9 @@ import { version } from '../package.json'
 import { c } from './console'
 import { ProfileService } from './profiles/profile-service'
 import { AplApiService } from './api/apl-api-service'
+import { RootApiController } from './api/root-api-controller'
+import { RawApiController } from './api/raw-api-controller'
+import { AplApiController } from './api/apl-api-controller'
 
 // --- prepare dependency injection
 routingCtrl.useContainer(Container)
@@ -24,22 +27,22 @@ class AppService {
   private readonly app: Express
   private readonly httpServer: https.Server
 
-  constructor(private readonly profileService: ProfileService, private readonly applianceService: AplApiService) {
+  constructor (private readonly profileService: ProfileService, private readonly applianceService: AplApiService) {
     console.log(c(this), 'constructor')
 
     // --- create the express application
     this.app = routingCtrl.createExpressServer({
-      controllers: [path.join(__dirname, '**/*-api-controller.js')],
+      controllers: [RootApiController, RawApiController, AplApiController],
       cors: {
-        origin: '*',
-      },
+        origin: '*'
+      }
     })
 
     // --- initialize a simple http server
     this.httpServer = https.createServer(
       {
         key: fs.readFileSync(this.profileService.profile.ca.key),
-        cert: fs.readFileSync(this.profileService.profile.ca.cert),
+        cert: fs.readFileSync(this.profileService.profile.ca.cert)
       },
       this.app
     )
@@ -49,10 +52,10 @@ class AppService {
 
     // --- configure logger, but not for technical urls
     const urls = ['/ready', '/isalive', '/metrics']
-    console.log(c(this), `desactivate morgan logs for urls`, urls)
+    console.log(c(this), 'desactivate morgan logs for urls', urls)
     this.app.use(
       morgan(this.profileService.profile.morgan, {
-        skip: (req, res) => urls.includes(req.url),
+        skip: (req, res) => urls.includes(req.url)
       })
     )
 
@@ -60,7 +63,7 @@ class AppService {
     prom.collectDefaultMetrics({ prefix: 'owfs_restful_' })
   }
 
-  public async launchServer(): Promise<void> {
+  public async launchServer (): Promise<void> {
     // --- run express application
     const currentVersion: string = version
     this.httpServer.listen(this.profileService.profile.port, '0.0.0.0', () => {
