@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { IWriteRequest } from '../../api/apl-api-controller'
-import { BaseDevice } from '../devices/base.device'
+import { BaseDevice, IDeviceReadResponse } from '../devices/base.device'
 import { BaseAppliance } from './base.appliance'
 
 type HeaterActionType = 'E' | '1' | '2' | 'C'
@@ -11,7 +11,16 @@ export class HeaterAppliance extends BaseAppliance {
   private longInterval: NodeJS.Timer | null = null
   private shortInterval: NodeJS.Timer | null = null
 
-  public async update (body: IWriteRequest): Promise<any[]> {
+  public async read(): Promise<{ [index: string]: IDeviceReadResponse }> {
+    const result: { [index: string]: IDeviceReadResponse } = {}
+    for (const key of Object.keys(this.devices)) {
+      // no need to read pio with shutter
+      result[key] = await Promise.resolve({ family: 'PIO', value: this.mode })
+    }
+    return result
+  }
+
+  public async update(body: IWriteRequest): Promise<any[]> {
     if (Object.prototype.hasOwnProperty.call(this.devices, 'PIO')) {
       const device = this.devices.PIO
 
@@ -31,7 +40,7 @@ export class HeaterAppliance extends BaseAppliance {
       if (hasIntervalRunning) {
         // invert PIO to reset mode
         const current = await device.read()
-        await device.write(current === '0' ? '1' : '0')
+        await device.write(current.value === '0' ? '1' : '0')
       }
 
       switch (body.value) {
@@ -61,7 +70,7 @@ export class HeaterAppliance extends BaseAppliance {
     return await Promise.resolve(['ok'])
   }
 
-  private async initInterval (action: HeaterActionType, device: BaseDevice): Promise<void> {
+  private async initInterval(action: HeaterActionType, device: BaseDevice): Promise<void> {
     this.shortInterval = setInterval(async () => {
       await device.write('0')
     }, this.fiveMins)

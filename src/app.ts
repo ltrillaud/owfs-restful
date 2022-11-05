@@ -1,23 +1,23 @@
 import 'reflect-metadata'
 
+import * as fs from 'fs'
 import * as https from 'https'
 import * as path from 'path'
-import * as fs from 'fs'
-import * as routingCtrl from 'routing-controllers'
 import * as prom from 'prom-client'
+import * as routingCtrl from 'routing-controllers'
 
-import favicon from 'serve-favicon'
-import morgan from 'morgan'
-import { Container, Service } from 'typedi'
 import { Express } from 'express'
+import morgan from 'morgan'
+import favicon from 'serve-favicon'
+import { Container, Service } from 'typedi'
 
 import { version } from '../package.json'
+import { AplApiController } from './api/apl-api-controller'
+import { AplApiService } from './api/apl-api-service'
+import { RawApiController } from './api/raw-api-controller'
+import { RootApiController } from './api/root-api-controller'
 import { c } from './console'
 import { ProfileService } from './profiles/profile-service'
-import { AplApiService } from './api/apl-api-service'
-import { RootApiController } from './api/root-api-controller'
-import { RawApiController } from './api/raw-api-controller'
-import { AplApiController } from './api/apl-api-controller'
 
 // --- prepare dependency injection
 routingCtrl.useContainer(Container)
@@ -27,24 +27,24 @@ class AppService {
   private readonly app: Express
   private readonly httpServer: https.Server
 
-  constructor (private readonly profileService: ProfileService, private readonly applianceService: AplApiService) {
+  constructor(private readonly profileService: ProfileService, private readonly applianceService: AplApiService) {
     console.log(c(this), 'constructor')
 
     // --- create the express application
     this.app = routingCtrl.createExpressServer({
       controllers: [RootApiController, RawApiController, AplApiController],
       cors: {
-        origin: '*'
-      }
+        origin: '*',
+      },
     })
 
     // --- initialize a simple http server
     this.httpServer = https.createServer(
       {
         key: fs.readFileSync(this.profileService.profile.ca.key),
-        cert: fs.readFileSync(this.profileService.profile.ca.cert)
+        cert: fs.readFileSync(this.profileService.profile.ca.cert),
       },
-      this.app
+      this.app,
     )
 
     // --- serve favicon
@@ -55,21 +55,21 @@ class AppService {
     console.log(c(this), 'desactivate morgan logs for urls', urls)
     this.app.use(
       morgan(this.profileService.profile.morgan, {
-        skip: (req, res) => urls.includes(req.url)
-      })
+        skip: (req, res) => urls.includes(req.url),
+      }),
     )
 
     // --- configure metric
     prom.collectDefaultMetrics({ prefix: 'owfs_restful_' })
   }
 
-  public async launchServer (): Promise<void> {
+  public async launchServer(): Promise<void> {
     // --- run express application
     const currentVersion: string = version
     this.httpServer.listen(this.profileService.profile.port, '0.0.0.0', () => {
       console.log(
         c(this),
-        `owfs_restful V${currentVersion} listening on https://0.0.0.0:${this.profileService.profile.port}`
+        `owfs_restful V${currentVersion} listening on https://0.0.0.0:${this.profileService.profile.port}`,
       )
     })
 
@@ -80,8 +80,8 @@ class AppService {
 Container.get(AppService)
   .launchServer()
   .then(() => {
-    console.log(c(this), 'started ok')
+    console.log('             app.ts started ok')
   })
   .catch((reason) => {
-    console.log(c(this), 'started ko', reason)
+    console.log('             app.ts started ko', reason)
   })

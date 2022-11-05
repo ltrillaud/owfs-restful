@@ -1,9 +1,19 @@
 import { IWriteRequest } from '../../api/apl-api-controller'
+import { IDeviceReadResponse } from '../devices/base.device'
 import { BaseAppliance } from './base.appliance'
 
 type ShutterActionType = 'O' | 'C'
 
 export class ShutterAppliance extends BaseAppliance {
+  public async read(): Promise<{ [index: string]: IDeviceReadResponse }> {
+    const result: { [index: string]: IDeviceReadResponse } = {}
+    for (const key of Object.keys(this.devices)) {
+      // no need to read pio with shutter
+      result[key] = await Promise.resolve({ family: 'PIO', value: '0' })
+    }
+    return result
+  }
+
   public async update(body: IWriteRequest): Promise<any[]> {
     let action: ShutterActionType
     switch (body.value) {
@@ -14,10 +24,8 @@ export class ShutterAppliance extends BaseAppliance {
         action = 'C'
         break
       default:
-        throw new Error(`Shutter action must be 'O' to open or 'C' to close`)
+        throw new Error('Shutter action must be \'O\' to open or \'C\' to close')
     }
-
-    console.log(`>>> shuter action(${action}), devices`, this.devices)
 
     if (Object.prototype.hasOwnProperty.call(this.devices, action)) {
       const device = this.devices[action]
@@ -28,6 +36,6 @@ export class ShutterAppliance extends BaseAppliance {
       throw new Error(`Action(${body.value}) doesn't exist in appliance(${this.type}) `)
     }
 
-    return await Promise.resolve(['not yet implemented'])
+    return await Promise.resolve(['ok'])
   }
 }

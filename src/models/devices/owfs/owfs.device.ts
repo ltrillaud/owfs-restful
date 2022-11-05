@@ -1,6 +1,8 @@
+/* eslint-disable quote-props */
 import Container from 'typedi'
 import { RawApiService } from '../../../api/raw-api-service'
-import { BaseDevice, IDeviceModel } from '../base.device'
+import { c } from '../../../console'
+import { BaseDevice, IDeviceModel, IDeviceReadResponse } from '../base.device'
 
 export class OwId {
   private static readonly pattern: RegExp = /^([0-9A-F]{2})\.([0-9A-F]{12})/i
@@ -31,28 +33,39 @@ export class OwfsDevice extends BaseDevice {
     this.owId = new OwId(device.id)
   }
 
-  async read(): Promise<string> {
-    const result = await this.rawApiService.read(
-      `/${this.device.id}/${OwfsDevice.family2defaultPath[this.owId.family]}`
-    )
-    // format result based on family
-    let output: string = result.payload.trim()
-    switch (this.owId.family) {
-      case '10':
-        output = parseFloat(output).toFixed(2).toString()
-        break
-      default:
-        break
+  async read(): Promise<IDeviceReadResponse> {
+    let output: string
+    try {
+      const result = await this.rawApiService.read(
+        `/${this.device.id}/${OwfsDevice.family2defaultPath[this.owId.family]}`,
+      )
+      output = result.payload.trim()
+      // format result based on family
+      switch (this.owId.family) {
+        case '10':
+          output = parseFloat(output).toFixed(2).toString()
+          break
+        default:
+          break
+      }
+    } catch (error) {
+      output = 'NaN'
     }
-    return output
+
+    return {
+      family: OwfsDevice.family2defaultPath[this.owId.family],
+      value: output,
+    }
   }
 
   async write(value: string): Promise<string> {
+    console.log(c(this), `writing value(${value}) in id(${this.device.id}) ...`)
+
     const response = await this.rawApiService.write(
       `/${this.device.id}/${OwfsDevice.family2defaultPath[this.owId.family]}`,
-      value
+      value,
     )
-    console.log(`>>> owFsDevice write response`, response)
+    console.log('>>> owFsDevice write response', response)
     return 'ok'
   }
 }

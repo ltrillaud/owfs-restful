@@ -1,6 +1,6 @@
 import { IWriteRequest } from '../../api/apl-api-controller'
 import { IAppliance } from '../../api/apl-api-service'
-import { BaseDevice } from '../devices/base.device'
+import { BaseDevice, IDeviceReadResponse } from '../devices/base.device'
 import { OwfsDevice } from '../devices/owfs/owfs.device'
 
 export abstract class BaseAppliance {
@@ -23,8 +23,12 @@ export abstract class BaseAppliance {
     return await Promise.resolve(['not yet implemented'])
   }
 
-  public async read(): Promise<{ [index: string]: string }> {
-    return await Promise.resolve({ none: 'not yet implemented' })
+  public async read(): Promise<{ [index: string]: IDeviceReadResponse }> {
+    const result: { [index: string]: IDeviceReadResponse } = {}
+    for (const key of Object.keys(this.devices)) {
+      result[key] = await Promise.resolve({ family: 'none', value: 'not yet implemented' })
+    }
+    return result
   }
 
   public async update(body: IWriteRequest): Promise<any[]> {

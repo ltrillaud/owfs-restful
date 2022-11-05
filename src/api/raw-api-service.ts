@@ -13,6 +13,16 @@ const OW_DIRALL: number = 7 // list 1-wire bus, in one packet string
 // UNUSED: const OW_DIRALLSLASH = 9; // dirall but with directory entries getting a trailing '/'
 // UNUSED: const OW_GETSLASH = 10; // dirallslash or read depending on path
 
+// DOC: https://owfs.org/index_php_page_owserver-flag-word.html
+const flags: { [index: string]: number } = {
+  request: 0x00000100,
+  uncached: 0x00000020,
+  safemode: 0x00000010,
+  alias: 0x00000008,
+  persist: 0x00000004,
+  busRet: 0x00000002,
+}
+
 export interface IListResponse {
   path: string
   header: IOwHeaderResponse
@@ -48,8 +58,7 @@ export class RawApiService {
   headerProps: OwHeaderType[] = ['version', 'payload', 'ret', 'controlflags', 'size', 'offset']
   headerLength = 24
 
-  // eslint-disable-next-line prettier/prettier
-  constructor(private readonly profileService: ProfileService) { }
+  constructor(private readonly profileService: ProfileService) {}
 
   // return array of dir
   async list(path: string): Promise<IListResponse> {
@@ -148,9 +157,9 @@ export class RawApiService {
           this.htonl(0),
           this.htonl(path.length + value.length),
           this.htonl(type),
-          this.htonl(0x00000020),
+          this.htonl(flags.request | flags.alias),
           this.htonl(value !== '' ? value.length : 8192),
-          this.htonl(0)
+          this.htonl(0),
         )
         const buf = Buffer.alloc(msg.length + path.length + value.length)
         Buffer.from(msg).copy(buf, 0)
