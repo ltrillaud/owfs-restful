@@ -3,7 +3,9 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["standard-with-typescript"],
+  "extends": [
+    "standard-with-typescript"
+  ],
   "plugins": [],
   "overrides": [],
   "parser": "@typescript-eslint/parser",
@@ -13,5 +15,9 @@
     "project": "tsconfig.json"
   },
   "rules": {
+    "space-before-function-paren": "off",
+    "@typescript-eslint/space-before-function-paren": "off",
+    "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": "off"
   }
 }

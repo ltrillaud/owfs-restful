@@ -63,6 +63,7 @@
     "@types/serve-favicon": "^2.5.3",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.40.1",
+    "dprint": "^0.32.2",
     "eslint": "^8.0.1",
     "eslint-config-standard-with-typescript": "^23.0.0",
     "eslint-plugin-import": "^2.25.2",

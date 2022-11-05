@@ -8,13 +8,14 @@
     }
   },
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.formatOnPaste": true,
-  "eslint.format.enable": true,
   "eslint.validate": [
     "typescript"
   ],
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
+    "[typescript]": {
+    "editor.defaultFormatter": "dprint.dprint",
+  }
 }
