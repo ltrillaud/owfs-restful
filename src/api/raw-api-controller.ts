@@ -1,5 +1,5 @@
+import { Authorized, BadRequestError, Body, Get, JsonController, Param, Put } from 'routing-controllers'
 import { Service } from 'typedi'
-import { JsonController, Get, Put, Param, Body, BadRequestError } from 'routing-controllers'
 
 import { IListResponse, IReadResponse, IWriteResponse, RawApiService } from './raw-api-service'
 
@@ -8,6 +8,7 @@ interface IWriteRequest {
 }
 
 @JsonController('/raw')
+@Authorized()
 @Service()
 export class RawApiController {
   constructor(private readonly rawApiService: RawApiService) {}
@@ -31,17 +32,17 @@ export class RawApiController {
   async write(
     @Param('id') id: string,
     @Param('att') att: string,
-    @Body() body: IWriteRequest
+    @Body() body: IWriteRequest,
   ): Promise<IWriteResponse> {
     let result: IWriteResponse
     if (Object.prototype.hasOwnProperty.call(body, 'value')) {
       if (body.value.length !== 0) {
         result = await this.rawApiService.write(`/${id}/${att}`, body.value)
       } else {
-        throw new BadRequestError(`JSON Body 'value' attribut is empty`)
+        throw new BadRequestError('JSON Body \'value\' attribut is empty')
       }
     } else {
-      throw new BadRequestError(`JSON Body haven't 'value' attribut`)
+      throw new BadRequestError('JSON Body haven\'t \'value\' attribut')
     }
     return result
   }

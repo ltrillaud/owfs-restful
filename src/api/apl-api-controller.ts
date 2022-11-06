@@ -1,4 +1,4 @@
-import { Body, Get, JsonController, Param, Put } from 'routing-controllers'
+import { Authorized, Body, Get, JsonController, Param, Put } from 'routing-controllers'
 import { Service } from 'typedi'
 import { c } from '../console'
 import { AplApiService, IApplianceResponse, IAppliancesResponse } from './apl-api-service'
@@ -8,6 +8,7 @@ export interface IWriteRequest {
 }
 
 @JsonController('/apl')
+@Authorized()
 @Service()
 export class AplApiController {
   // eslint-disable-next-line @typescript-eslint/space-before-function-paren

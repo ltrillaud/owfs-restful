@@ -8,6 +8,7 @@ export interface IBaseProfile {
   morgan: string
   port: number
   ca: IProfileCa
+  jwtSecret: string
 }
 
 export interface IProfile extends IBaseProfile {

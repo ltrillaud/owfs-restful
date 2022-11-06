@@ -11,12 +11,14 @@ import morgan from 'morgan'
 import favicon from 'serve-favicon'
 import { Container, Service } from 'typedi'
 
+import { Action } from 'routing-controllers'
 import { version } from '../package.json'
 import { AplApiController } from './api/apl-api-controller'
 import { AplApiService } from './api/apl-api-service'
 import { RawApiController } from './api/raw-api-controller'
 import { RootApiController } from './api/root-api-controller'
 import { c } from './console'
+import { expressAuthentication } from './jwt-auth'
 import { ProfileService } from './profiles/profile-service'
 
 // --- prepare dependency injection
@@ -35,6 +37,17 @@ class AppService {
       controllers: [RootApiController, RawApiController, AplApiController],
       cors: {
         origin: '*',
+      },
+      authorizationChecker: async (action: Action, roles: string[]) => {
+        // allow if header authorization is set
+        let isAllowed: boolean
+        try {
+          await expressAuthentication(action.request, 'jwt')
+          isAllowed = true
+        } catch (error) {
+          isAllowed = false
+        }
+        return isAllowed
       },
     })
 

@@ -1,3 +1,4 @@
+import * as fs from 'fs'
 import { IProfile } from './profile-model'
 
 export const profile: IProfile = {
@@ -12,6 +13,7 @@ export const profile: IProfile = {
   // name of the appliance to used
   // appliance2proxyName: 'default',
   appliance2proxyName: 'home',
+  jwtSecret: fs.readFileSync('./.jwt.cert', 'utf-8'),
 
   ca: {
     key: './localhost.key',
