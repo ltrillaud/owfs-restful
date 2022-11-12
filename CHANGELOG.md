@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/ltrillaud/owfs-restful/compare/v1.2.0...v1.3.0) (2022-11-12)
+
+
+### Features
+
+* **app:** protect with JWT ([181da5c](https://github.com/ltrillaud/owfs-restful/commit/181da5c222d26741889f9731a40fbdb160139b51))
+
+
+### Bug Fixes
+
+* **api:** implement read for PIO ([ddc80ff](https://github.com/ltrillaud/owfs-restful/commit/ddc80ff0bba5bf308633d6ec08950d1a2860690b))
+* **app:** change pretier for dprint ([fa76967](https://github.com/ltrillaud/owfs-restful/commit/fa7696751544992e527def7a0094992e2bca3204))
+* **app:** use declarative controllers ([29ae693](https://github.com/ltrillaud/owfs-restful/commit/29ae693987c091901b214d1b0d552e1fc4de2abf))
+
 ## 1.2.0 (2022-10-23)
 
 
