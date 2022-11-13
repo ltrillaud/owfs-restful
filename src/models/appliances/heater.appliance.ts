@@ -3,7 +3,7 @@ import { IWriteRequest } from '../../api/apl-api-controller'
 import { BaseDevice, IDeviceReadResponse } from '../devices/base.device'
 import { BaseAppliance } from './base.appliance'
 
-type HeaterActionType = 'E' | '1' | '2' | 'C'
+export type HeaterActionType = 'E' | '1' | '2' | 'C'
 
 export class HeaterAppliance extends BaseAppliance {
   private readonly fiveMins = 5 * 60 * 1000

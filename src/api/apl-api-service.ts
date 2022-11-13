@@ -1,5 +1,6 @@
 import * as path from 'path'
 import { Service } from 'typedi'
+import { c } from '../console'
 import { BaseAppliance } from '../models/appliances/base.appliance'
 import { HeaterAppliance } from '../models/appliances/heater.appliance'
 import { SensorAppliance } from '../models/appliances/sensor.appliance'
@@ -71,6 +72,7 @@ export class AplApiService {
           console.warn('appliances.ts unknow proxy(' + appliance + ')')
       }
     }
+    console.log(c(this), `registered ${Object.keys(this.appliances).length} appliances`)
   }
 
   public getAll(): IAppliancesResponse {

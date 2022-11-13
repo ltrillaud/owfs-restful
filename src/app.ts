@@ -15,6 +15,8 @@ import { Action } from 'routing-controllers'
 import { version } from '../package.json'
 import { AplApiController } from './api/apl-api-controller'
 import { AplApiService } from './api/apl-api-service'
+import { CronApiController } from './api/cron-api-controller'
+import { CronApiService } from './api/cron-api-service'
 import { RawApiController } from './api/raw-api-controller'
 import { RootApiController } from './api/root-api-controller'
 import { c } from './console'
@@ -29,12 +31,16 @@ class AppService {
   private readonly app: Express
   private readonly httpServer: https.Server
 
-  constructor(private readonly profileService: ProfileService, private readonly applianceService: AplApiService) {
+  constructor(
+    private readonly profileService: ProfileService,
+    private readonly applianceService: AplApiService,
+    private readonly cronService: CronApiService,
+  ) {
     console.log(c(this), 'constructor')
 
     // --- create the express application
     this.app = routingCtrl.createExpressServer({
-      controllers: [RootApiController, RawApiController, AplApiController],
+      controllers: [RootApiController, RawApiController, AplApiController, CronApiController],
       cors: {
         origin: '*',
       },
@@ -77,6 +83,10 @@ class AppService {
   }
 
   public async launchServer(): Promise<void> {
+    await this.applianceService.register()
+    // --- restore cron
+    await this.cronService.setup()
+
     // --- run express application
     const currentVersion: string = version
     this.httpServer.listen(this.profileService.profile.port, '0.0.0.0', () => {
@@ -85,8 +95,6 @@ class AppService {
         `owfs_restful V${currentVersion} listening on https://0.0.0.0:${this.profileService.profile.port}`,
       )
     })
-
-    await this.applianceService.register()
   }
 }
 

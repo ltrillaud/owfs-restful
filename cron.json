@@ -1,0 +1,46 @@
+{
+  "1": {
+    "schedule": {
+      "useDawn": false,
+      "useDusk": false,
+      "dayOfWeek": "",
+      "month": "*",
+      "dayOfMonth": "*",
+      "hour": "17",
+      "minute": "0",
+      "cron": "30 3 * * *"
+    },
+    "actions": [
+      {
+        "apl": "S",
+        "value": "C"
+      },
+      {
+        "apl": "R",
+        "value": "C"
+      }
+    ]
+  },
+  "2": {
+    "schedule": {
+      "useDawn": false,
+      "useDusk": false,
+      "dayOfWeek": "",
+      "month": "*",
+      "dayOfMonth": "*",
+      "hour": "17",
+      "minute": "0",
+      "cron": "30 6 * * *"
+    },
+    "actions": [
+      {
+        "apl": "S",
+        "value": "E"
+      },
+      {
+        "apl": "R",
+        "value": "E"
+      }
+    ]
+  }
+}

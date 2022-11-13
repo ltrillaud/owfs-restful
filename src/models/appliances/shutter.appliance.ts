@@ -2,7 +2,7 @@ import { IWriteRequest } from '../../api/apl-api-controller'
 import { IDeviceReadResponse } from '../devices/base.device'
 import { BaseAppliance } from './base.appliance'
 
-type ShutterActionType = 'O' | 'C'
+export type ShutterActionType = 'O' | 'C'
 
 export class ShutterAppliance extends BaseAppliance {
   public async read(): Promise<{ [index: string]: IDeviceReadResponse }> {

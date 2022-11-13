@@ -201,6 +201,20 @@
   dependencies:
     "@types/node" "*"
 
+"@types/nanoid@^3.0.0":
+  version "3.0.0"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/@types/nanoid/-/nanoid-3.0.0.tgz#c757b20f343f3a1dd76e80a9a431b6290fc20f35"
+  integrity sha1-x1eyDzQ/Oh3XboCppDG2KQ/CDzU=
+  dependencies:
+    nanoid "*"
+
+"@types/node-schedule@^2.1.0":
+  version "2.1.0"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/@types/node-schedule/-/node-schedule-2.1.0.tgz#60375640c0509bab963573def9d1f417f438c290"
+  integrity sha1-YDdWQMBQm6uWNXPe+dH0F/Q4wpA=
+  dependencies:
+    "@types/node" "*"
+
 "@types/node@*":
   version "18.11.0"
   resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/@types/node/-/node-18.11.0.tgz#f38c7139247a1d619f6cc6f27b072606af7c289d"
@@ -981,6 +995,14 @@ create-require@^1.1.0:
   version "1.1.1"
   resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha1-wdfo8eX2z8n/ZfnNNS03NIdWwzM=
+
+cron-parser@^3.5.0:
+  version "3.5.0"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/cron-parser/-/cron-parser-3.5.0.tgz#b1a9da9514c0310aa7ef99c2f3f1d0f8c235257c"
+  integrity sha1-sanalRTAMQqn75nC8/HQ+MI1JXw=
+  dependencies:
+    is-nan "^1.3.2"
+    luxon "^1.26.0"
 
 cross-spawn@^7.0.2:
   version "7.0.3"
@@ -2018,6 +2040,14 @@ is-glob@^4.0.0, is-glob@^4.0.1, is-glob@^4.0.3, is-glob@~4.0.1:
   dependencies:
     is-extglob "^2.1.1"
 
+is-nan@^1.3.2:
+  version "1.3.2"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/is-nan/-/is-nan-1.3.2.tgz#043a54adea31748b55b6cd4e09aadafa69bd9e1d"
+  integrity sha1-BDpUreoxdItVts1OCara+mm9nh0=
+  dependencies:
+    call-bind "^1.0.0"
+    define-properties "^1.1.3"
+
 is-negative-zero@^2.0.2:
   version "2.0.2"
   resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/is-negative-zero/-/is-negative-zero-2.0.2.tgz#7bf6f03a28003b8b3965de3ac26f664d765f3150"
@@ -2386,12 +2416,22 @@ lodash@^4.17.15:
   resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha1-Z5WRxWTDv/quhFTPCz3zcMPWkRw=
 
+long-timeout@0.1.1:
+  version "0.1.1"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/long-timeout/-/long-timeout-0.1.1.tgz#9721d788b47e0bcb5a24c2e2bee1a0da55dab514"
+  integrity sha1-lyHXiLR+C8taJMLivuGg2lXatRQ=
+
 lru-cache@^6.0.0:
   version "6.0.0"
   resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/lru-cache/-/lru-cache-6.0.0.tgz#6d6fe6570ebd96aaf90fcad1dafa3b2566db3a94"
   integrity sha1-bW/mVw69lqr5D8rR2vo7JWbbOpQ=
   dependencies:
     yallist "^4.0.0"
+
+luxon@^1.26.0:
+  version "1.28.0"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/luxon/-/luxon-1.28.0.tgz#e7f96daad3938c06a62de0fb027115d251251fbf"
+  integrity sha1-5/ltqtOTjAamLeD7AnEV0lElH78=
 
 make-error@^1.1.1:
   version "1.3.6"
@@ -2567,6 +2607,16 @@ multer@^1.4.2:
     type-is "^1.6.4"
     xtend "^4.0.0"
 
+nanoid@*:
+  version "4.0.0"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/nanoid/-/nanoid-4.0.0.tgz#6e144dee117609232c3f415c34b0e550e64999a5"
+  integrity sha1-bhRN7hF2CSMsP0FcNLDlUOZJmaU=
+
+nanoid@3:
+  version "3.3.4"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
+  integrity sha1-cwtn480J4t6s8DwCfIHJ2dvF6Ks=
+
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
@@ -2581,6 +2631,15 @@ neo-async@^2.6.0:
   version "2.6.2"
   resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha1-tKr7k+OustgXTKU88WOrfXMIMF8=
+
+node-schedule@^2.1.0:
+  version "2.1.0"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/node-schedule/-/node-schedule-2.1.0.tgz#068ae38d7351c330616f7fe7cdb05036f977cbaf"
+  integrity sha1-BorjjXNRwzBhb3/nzbBQNvl3y68=
+  dependencies:
+    cron-parser "^3.5.0"
+    long-timeout "0.1.1"
+    sorted-array-functions "^1.3.0"
 
 nodemon@^2.0.20:
   version "2.0.20"
@@ -3234,6 +3293,11 @@ slash@^3.0.0:
   version "3.0.0"
   resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha1-ZTm+hwwWWtvVJAIg2+Nh8bxNRjQ=
+
+sorted-array-functions@^1.3.0:
+  version "1.3.0"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/sorted-array-functions/-/sorted-array-functions-1.3.0.tgz#8605695563294dffb2c9796d602bd8459f7a0dd5"
+  integrity sha1-hgVpVWMpTf+yyXltYCvYRZ96DdU=
 
 source-map@^0.6.1:
   version "0.6.1"
