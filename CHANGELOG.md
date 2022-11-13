@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/ltrillaud/owfs-restful/compare/v1.3.0...v1.4.0) (2022-11-13)
+
+
+### Features
+
+* **cron:** add cron controller ([b2ec522](https://github.com/ltrillaud/owfs-restful/commit/b2ec5222ae9b6a22457b56bf8ee2a3fb772308fc))
+
 ## [1.3.0](https://github.com/ltrillaud/owfs-restful/compare/v1.2.0...v1.3.0) (2022-11-12)
 
 
