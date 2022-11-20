@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/ltrillaud/owfs-restful/compare/v1.4.0...v1.5.0) (2022-11-20)
+
+
+### Features
+
+* **app:** add weather feature ([9025a1b](https://github.com/ltrillaud/owfs-restful/commit/9025a1b62e73bd0ffda105501a179f2796df4714))
+* **cron:** implment sun dawn/dust ([4c95a17](https://github.com/ltrillaud/owfs-restful/commit/4c95a17b826c93cf2e670f24a12a346f7a3266fd))
+
+
+### Bug Fixes
+
+* **cron:** change config ([ccbb9cf](https://github.com/ltrillaud/owfs-restful/commit/ccbb9cf067c6183b0aecfe0980eeb07a86fc0a5b))
+
 ## [1.4.0](https://github.com/ltrillaud/owfs-restful/compare/v1.3.0...v1.4.0) (2022-11-13)
 
 
