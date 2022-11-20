@@ -1,35 +1,35 @@
 Arguments: 
-  /opt/homebrew/Cellar/node@16/16.17.0_1/bin/node /opt/homebrew/bin/yarn add nanoid^3
+  /opt/homebrew/Cellar/node@18/18.12.1/bin/node /opt/homebrew/bin/yarn add @types/undici --dev
 
 PATH: 
-  /opt/homebrew/opt/libarchive/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/opt/node@16/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+  /opt/homebrew/opt/node@18/bin:/opt/homebrew/opt/libarchive/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/bin:/opt/homebrew/opt/node@16/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 Yarn version: 
   1.22.17
 
 Node version: 
-  16.17.0
+  18.12.1
 
 Platform: 
   darwin arm64
 
 Trace: 
-  Error: https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/nanoid%5E3: The package 'nanoid^3' was not found in feed 'Main_Feed'
-      at Request.params.callback [as _callback] (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:67029:18)
-      at Request.self.callback (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:140883:22)
+  Error: https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/@types%2fundici: The package '@types/undici' was not found in feed 'Main_Feed'
+      at params.callback [as _callback] (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:67029:18)
+      at self.callback (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:140883:22)
       at Request.emit (node:events:513:28)
       at Request.<anonymous> (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:141855:10)
       at Request.emit (node:events:513:28)
       at IncomingMessage.<anonymous> (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:141777:12)
       at Object.onceWrapper (node:events:627:28)
       at IncomingMessage.emit (node:events:525:35)
-      at endReadableNT (node:internal/streams/readable:1358:12)
-      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+      at endReadableNT (node:internal/streams/readable:1359:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 
 npm manifest: 
   {
     "name": "owfs-restful",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "description": "OWFS Restful server written in Typescript",
     "main": "src/app.ts",
     "license": "MIT",
@@ -79,11 +79,13 @@ npm manifest:
       "express": "^4.18.2",
       "jsonwebtoken": "^8.5.1",
       "morgan": "^1.10.0",
+      "nanoid": "^3.3.4",
       "node-schedule": "^2.1.0",
       "prom-client": "^14.1.0",
       "reflect-metadata": "^0.1.13",
       "routing-controllers": "^0.9.0",
       "serve-favicon": "^2.5.0",
+      "suncalc": "^1.9.0",
       "typedi": "^0.10.0"
     },
     "devDependencies": {
@@ -92,9 +94,10 @@ npm manifest:
       "@types/jsonwebtoken": "^8.5.9",
       "@types/morgan": "^1.9.3",
       "@types/nanoid": "^3.0.0",
-      "@types/node": "16",
+      "@types/node": "^18.11.9",
       "@types/node-schedule": "^2.1.0",
       "@types/serve-favicon": "^2.5.3",
+      "@types/suncalc": "^1.9.0",
       "@typescript-eslint/eslint-plugin": "^5.0.0",
       "@typescript-eslint/parser": "^5.40.1",
       "dprint": "^0.32.2",
@@ -339,10 +342,10 @@ Lockfile:
     resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/@types/node/-/node-18.11.0.tgz#f38c7139247a1d619f6cc6f27b072606af7c289d"
     integrity sha1-84xxOSR6HWGfbMbyewcmBq98KJ0=
   
-  "@types/node@16":
-    version "16.11.66"
-    resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/@types/node/-/node-16.11.66.tgz#97f6891c3b8770e21163b93918d57fd1b799e235"
-    integrity sha1-l/aJHDuHcOIRY7k5GNV/0beZ4jU=
+  "@types/node@^18.11.9":
+    version "18.11.9"
+    resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/@types/node/-/node-18.11.9.tgz#02d013de7058cea16d36168ef2fc653464cfbad4"
+    integrity sha1-AtAT3nBYzqFtNhaO8vxlNGTPutQ=
   
   "@types/normalize-package-data@^2.4.0":
     version "2.4.1"
@@ -373,6 +376,11 @@ Lockfile:
     dependencies:
       "@types/mime" "*"
       "@types/node" "*"
+  
+  "@types/suncalc@^1.9.0":
+    version "1.9.0"
+    resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/@types/suncalc/-/suncalc-1.9.0.tgz#bfd8792efdd74b2c807aba13ba441a78990d73b5"
+    integrity sha1-v9h5Lv3XSyyAeroTukQaeJkNc7U=
   
   "@typescript-eslint/eslint-plugin@^5.0.0":
     version "5.40.0"
@@ -2731,6 +2739,11 @@ Lockfile:
     resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/nanoid/-/nanoid-4.0.0.tgz#6e144dee117609232c3f415c34b0e550e64999a5"
     integrity sha1-bhRN7hF2CSMsP0FcNLDlUOZJmaU=
   
+  nanoid@^3.3.4:
+    version "3.3.4"
+    resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
+    integrity sha1-cwtn480J4t6s8DwCfIHJ2dvF6Ks=
+  
   natural-compare@^1.4.0:
     version "1.4.0"
     resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
@@ -3567,6 +3580,11 @@ Lockfile:
     version "3.1.1"
     resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
     integrity sha1-MfEoGzgyYwQ0gxwxDAHMzajL4AY=
+  
+  suncalc@^1.9.0:
+    version "1.9.0"
+    resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/suncalc/-/suncalc-1.9.0.tgz#26212353fae61edb287c2d558fc4932ecf0e1532"
+    integrity sha1-JiEjU/rmHtsofC1Vj8STLs8OFTI=
   
   supports-color@^5.3.0, supports-color@^5.5.0:
     version "5.5.0"

@@ -1,3 +1,7 @@
+import { IAppliances2proxy } from '../api/apl-api-service'
+import { Location } from '../api/cron-api-service'
+
+export type UnitsSystem = 'metric' | 'imperial'
 export interface IProfileCa {
   key: string
   cert: string
@@ -14,5 +18,9 @@ export interface IBaseProfile {
 export interface IProfile extends IBaseProfile {
   owServerHost: string
   owServerPort: number
-  privacyName: string
+
+  unitsSystem: UnitsSystem
+  weatherApiKey: string
+  location: Location
+  appliance2proxy: IAppliances2proxy
 }

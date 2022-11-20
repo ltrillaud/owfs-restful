@@ -220,10 +220,10 @@
   resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/@types/node/-/node-18.11.0.tgz#f38c7139247a1d619f6cc6f27b072606af7c289d"
   integrity sha1-84xxOSR6HWGfbMbyewcmBq98KJ0=
 
-"@types/node@16":
-  version "16.11.66"
-  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/@types/node/-/node-16.11.66.tgz#97f6891c3b8770e21163b93918d57fd1b799e235"
-  integrity sha1-l/aJHDuHcOIRY7k5GNV/0beZ4jU=
+"@types/node@^18.11.9":
+  version "18.11.9"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/@types/node/-/node-18.11.9.tgz#02d013de7058cea16d36168ef2fc653464cfbad4"
+  integrity sha1-AtAT3nBYzqFtNhaO8vxlNGTPutQ=
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -613,6 +613,13 @@ busboy@^0.2.11:
   dependencies:
     dicer "0.2.5"
     readable-stream "1.1.x"
+
+busboy@^1.6.0:
+  version "1.6.0"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/busboy/-/busboy-1.6.0.tgz#966ea36a9502e43cdb9146962523b92f531f6893"
+  integrity sha1-lm6japUC5DzbkUaWJSO5L1MfaJM=
+  dependencies:
+    streamsearch "^1.1.0"
 
 bytes@3.1.2:
   version "3.1.2"
@@ -3384,6 +3391,11 @@ streamsearch@0.1.2:
   resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/streamsearch/-/streamsearch-0.1.2.tgz#808b9d0e56fc273d809ba57338e929919a1a9f1a"
   integrity sha1-gIudDlb8Jz2Am6VzOOkpkZoanxo=
 
+streamsearch@^1.1.0:
+  version "1.1.0"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/streamsearch/-/streamsearch-1.1.0.tgz#404dd1e2247ca94af554e841a8ef0eaa238da764"
+  integrity sha1-QE3R4iR8qUr1VOhBqO8OqiONp2Q=
+
 string-width@^4.1.0, string-width@^4.2.0:
   version "4.2.3"
   resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
@@ -3671,6 +3683,13 @@ undefsafe@^2.0.5:
   version "2.0.5"
   resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/undefsafe/-/undefsafe-2.0.5.tgz#38733b9327bdcd226db889fb723a6efd162e6e2c"
   integrity sha1-OHM7kye9zSJtuIn7cjpu/RYubiw=
+
+undici@^5.12.0:
+  version "5.12.0"
+  resolved "https://pkgs.dev.azure.com/Jean-PierreRAYSZ/doclab/_packaging/Main_Feed/npm/registry/undici/-/undici-5.12.0.tgz#c758ffa704fbcd40d506e4948860ccaf4099f531"
+  integrity sha1-x1j/pwT7zUDVBuSUiGDMr0CZ9TE=
+  dependencies:
+    busboy "^1.6.0"
 
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"

@@ -18,7 +18,7 @@ export class RootApiService {
   }
 
   public getRoot(): IRootResult {
-    return { app: 'owfs_restful', version, usages: ['/raw/**', '/dev/**', '/apl/**'] }
+    return { app: 'owfs_restful', version, usages: ['/raw/**', '/dev/**', '/apl/**', '/weather/**'] }
   }
 
   public getAlive(): boolean {

@@ -1,6 +1,5 @@
 import { readFile } from 'fs/promises'
 import { Job, RecurrenceRule, RecurrenceSpecObjLit, scheduleJob } from 'node-schedule'
-import { join } from 'path'
 import SunCalc from 'suncalc'
 import { Service } from 'typedi'
 
@@ -90,13 +89,6 @@ export class CronApiService {
   }
 
   async setup(): Promise<void> {
-    const locationLibPath = join(
-      '../profiles/locations',
-      `${this.profileService.profile.privacyName}.ts`,
-    )
-    const app = await import(locationLibPath)
-    const location: Location = app.location
-
     try {
       const raw = await readFile(this.cronPath, 'utf-8')
       this.crons = JSON.parse(raw)
@@ -108,6 +100,7 @@ export class CronApiService {
     for (const [key, cron] of Object.entries(this.crons)) {
       const { sunStep, ...rule } = { ...cron.schedule }
       if (cron.schedule.sunStep !== 'none') { // // sun based hour / min
+        const location = this.profileService.profile.location
         const times = SunCalc.getTimes(new Date(), location.latitude, location.longitude)
         const date = new Date(times[cron.schedule.sunStep])
         rule.hour = date.getHours()

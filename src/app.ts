@@ -19,6 +19,7 @@ import { CronApiController } from './api/cron-api-controller'
 import { CronApiService } from './api/cron-api-service'
 import { RawApiController } from './api/raw-api-controller'
 import { RootApiController } from './api/root-api-controller'
+import { WeatherApiController } from './api/weather-api-controller'
 import { c } from './console'
 import { expressAuthentication } from './jwt-auth'
 import { ProfileService } from './profiles/profile-service'
@@ -40,7 +41,7 @@ class AppService {
 
     // --- create the express application
     this.app = routingCtrl.createExpressServer({
-      controllers: [RootApiController, RawApiController, AplApiController, CronApiController],
+      controllers: [RootApiController, RawApiController, AplApiController, CronApiController, WeatherApiController],
       cors: {
         origin: '*',
       },

@@ -1,5 +1,5 @@
-import * as path from 'path'
 import { Service } from 'typedi'
+
 import { c } from '../console'
 import { BaseAppliance } from '../models/appliances/base.appliance'
 import { HeaterAppliance } from '../models/appliances/heater.appliance'
@@ -46,13 +46,7 @@ export class AplApiService {
   }
 
   public async register(): Promise<void> {
-    const applianceLibPath = path.join(
-      '../profiles/appliances',
-      `${this.profileService.profile.privacyName}.ts`,
-    )
-    const app = await import(applianceLibPath)
-    const appliance2proxy: IAppliances2proxy = app.appliance2proxy
-    for (const [key, val] of Object.entries(appliance2proxy)) {
+    for (const [key, val] of Object.entries(this.profileService.profile.appliance2proxy)) {
       // TODO : build instance dynamicaly
       const appliance = val.appliance
       switch (appliance) {

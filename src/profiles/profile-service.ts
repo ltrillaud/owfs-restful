@@ -4,8 +4,8 @@ import { IProfile } from './profile-model'
 
 @Service()
 export class ProfileService extends ProfileBaseService<IProfile> {
-  constructor () {
-    const name = process.env.PROFILE ?? 'local'
+  constructor() {
+    const name = process.env.PROFILE ?? 'default'
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     super(name, require(`./${name}.ts`).profile)
   }

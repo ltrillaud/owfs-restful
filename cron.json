@@ -17,11 +17,54 @@
       },
       {
         "apl": "SR",
-        "value": "0"
+        "value": "O"
       },
       {
         "apl": "CR",
-        "value": "0"
+        "value": "O"
+      }
+    ]
+  },
+  "closeShutterAtNight": {
+    "schedule": {
+      "sunStep": "night"
+    },
+    "actions": [
+      {
+        "apl": "PR",
+        "value": "O"
+      },
+      {
+        "apl": "AR",
+        "value": "O"
+      },
+      {
+        "apl": "JRS",
+        "value": "O"
+      },
+      {
+        "apl": "JRE",
+        "value": "O"
+      },
+      {
+        "apl": "JRP",
+        "value": "O"
+      },
+      {
+        "apl": "UR",
+        "value": "O"
+      },
+      {
+        "apl": "SR",
+        "value": "O"
+      },
+      {
+        "apl": "MR",
+        "value": "O"
+      },
+      {
+        "apl": "CR",
+        "value": "O"
       }
     ]
   },
@@ -38,6 +81,26 @@
       },
       {
         "apl": "R",
+        "value": "C"
+      }
+    ]
+  },
+  "startHeaterAmandine": {
+    "schedule": {
+      "sunStep": "none",
+      "dayOfWeek": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "hour": "17",
+      "minute": "30"
+    },
+    "actions": [
+      {
+        "apl": "M",
         "value": "C"
       }
     ]
