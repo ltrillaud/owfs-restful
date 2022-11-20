@@ -48,7 +48,7 @@ export class AplApiService {
   public async register(): Promise<void> {
     const applianceLibPath = path.join(
       '../profiles/appliances',
-      `${this.profileService.profile.appliance2proxyName}.ts`,
+      `${this.profileService.profile.privacyName}.ts`,
     )
     const app = await import(applianceLibPath)
     const appliance2proxy: IAppliances2proxy = app.appliance2proxy

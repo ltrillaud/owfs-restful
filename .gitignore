@@ -4,6 +4,7 @@ src/**/*.js
 src/**/*.js.map
 src/**/*.d.ts
 src/profiles/appliances/home.ts
+src/profiles/locations/home.ts
 npm-debug.log
 ./yarn.lock
 ./yarn-error.log

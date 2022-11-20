@@ -10,9 +10,9 @@ export const profile: IProfile = {
   owServerHost: '192.168.1.1',
   owServerPort: 4304,
 
-  // name of the appliance to used
+  // name of the appliance and location to used
   // appliance2proxyName: 'default',
-  appliance2proxyName: 'home',
+  privacyName: 'home',
   jwtSecret: fs.readFileSync('./.jwt.cert', 'utf-8'),
 
   ca: {

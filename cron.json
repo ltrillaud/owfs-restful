@@ -1,14 +1,35 @@
 {
-  "1": {
+  "openShutterAtDusk": {
     "schedule": {
-      "useDawn": false,
-      "useDusk": false,
-      "dayOfWeek": "",
-      "month": "*",
-      "dayOfMonth": "*",
-      "hour": "17",
-      "minute": "0",
-      "cron": "30 3 * * *"
+      "sunStep": "dawn",
+      "dayOfWeek": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "actions": [
+      {
+        "apl": "UR",
+        "value": "O"
+      },
+      {
+        "apl": "SR",
+        "value": "0"
+      },
+      {
+        "apl": "CR",
+        "value": "0"
+      }
+    ]
+  },
+  "startNightHeater": {
+    "schedule": {
+      "sunStep": "none",
+      "hour": "3",
+      "minute": "30"
     },
     "actions": [
       {
@@ -21,16 +42,11 @@
       }
     ]
   },
-  "2": {
+  "stopNightHeater": {
     "schedule": {
-      "useDawn": false,
-      "useDusk": false,
-      "dayOfWeek": "",
-      "month": "*",
-      "dayOfMonth": "*",
-      "hour": "17",
-      "minute": "0",
-      "cron": "30 6 * * *"
+      "sunStep": "none",
+      "hour": "6",
+      "minute": "45"
     },
     "actions": [
       {

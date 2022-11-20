@@ -14,5 +14,5 @@ export interface IBaseProfile {
 export interface IProfile extends IBaseProfile {
   owServerHost: string
   owServerPort: number
-  appliance2proxyName: string
+  privacyName: string
 }
