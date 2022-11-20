@@ -27,7 +27,7 @@
   },
   "closeShutterAtNight": {
     "schedule": {
-      "sunStep": "night"
+      "sunStep": "dusk"
     },
     "actions": [
       {
