@@ -32,39 +32,39 @@
     "actions": [
       {
         "apl": "PR",
-        "value": "O"
+        "value": "C"
       },
       {
         "apl": "AR",
-        "value": "O"
+        "value": "C"
       },
       {
         "apl": "JRS",
-        "value": "O"
+        "value": "C"
       },
       {
         "apl": "JRE",
-        "value": "O"
+        "value": "C"
       },
       {
         "apl": "JRP",
-        "value": "O"
+        "value": "C"
       },
       {
         "apl": "UR",
-        "value": "O"
+        "value": "C"
       },
       {
         "apl": "SR",
-        "value": "O"
+        "value": "C"
       },
       {
         "apl": "MR",
-        "value": "O"
+        "value": "C"
       },
       {
         "apl": "CR",
-        "value": "O"
+        "value": "C"
       }
     ]
   },
