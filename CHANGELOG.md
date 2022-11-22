@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/ltrillaud/owfs-restful/compare/v1.5.0...v1.5.1) (2022-11-22)
+
+
+### Bug Fixes
+
+* **cron:** fix handler profile location ([717461f](https://github.com/ltrillaud/owfs-restful/commit/717461f8351f0ccc86ec3b1958fb13e828313515))
+
 ## [1.5.0](https://github.com/ltrillaud/owfs-restful/compare/v1.4.0...v1.5.0) (2022-11-20)
 
 
