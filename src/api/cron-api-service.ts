@@ -59,18 +59,22 @@ export class CronApiService {
     private readonly profileService: ProfileService,
   ) {}
 
-  static handler(this: any, key: string, cron: Cron): void {
+  private static async handler(this: CronApiService, key: string, cron: Cron): Promise<void> {
     console.log(c(this), `handle cron id(${key}) @ ${new Date().toISOString()}`)
 
     for (const action of cron.actions) {
       console.log(`>>> action key(${action.apl}) val(${action.value})`)
-      this.aplApiService.appliances[action.apl].update({ value: action.value })
+      await this.aplApiService.appliances[action.apl].update({ value: action.value })
     }
 
     if (cron.schedule.sunStep !== 'none') {
       // reschedule this job outside this callback
       let next = cron.job?.nextInvocation()
-      const times = SunCalc.getTimes(next!, this.profile.location.latitude, this.profile.location.longitude)
+      const times = SunCalc.getTimes(
+        next!,
+        this.profileService.profile.location.latitude,
+        this.profileService.profile.location.longitude,
+      )
       const date = new Date(times[cron.schedule.sunStep])
       const rule = new RecurrenceRule(
         cron.schedule.year,
@@ -107,11 +111,7 @@ export class CronApiService {
         rule.minute = date.getMinutes()
       }
 
-      cron.job = scheduleJob(
-        key,
-        rule,
-        CronApiService.handler.bind(this, key, cron),
-      )
+      cron.job = scheduleJob(key, rule, CronApiService.handler.bind(this, key, cron))
       const next = cron.job.nextInvocation()
       console.log(c(this), `setup arm id(${key}) next(${next.toLocaleString()})`)
     }
