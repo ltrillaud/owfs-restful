@@ -65,7 +65,7 @@ export class OwfsDevice extends BaseDevice {
       `/${this.device.id}/${OwfsDevice.family2defaultPath[this.owId.family]}`,
       value,
     )
-    console.log('>>> owFsDevice write response', response)
-    return 'ok'
+    // console.log('>>> owFsDevice write response', response)
+    return response.header.ret === 0 ? 'ok' : 'ko'
   }
 }

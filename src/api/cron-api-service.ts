@@ -63,7 +63,6 @@ export class CronApiService {
     console.log(c(this), `handle cron id(${key}) @ ${new Date().toISOString()}`)
 
     for (const action of cron.actions) {
-      console.log(`>>> action key(${action.apl}) val(${action.value})`)
       await this.aplApiService.appliances[action.apl].update({ value: action.value })
     }
 

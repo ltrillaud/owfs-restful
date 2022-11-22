@@ -101,7 +101,7 @@ export class RawApiService {
             const prop = this.headerProps[i]
             header[prop] = this.ntohl(buffer, i * 4)
           }
-          console.log('Extracted header', header)
+          // console.log('Extracted header', header)
           if (header.ret < 0) {
             const err = new Error(`Communication Error. Received(${header.ret}) `)
             // FIXME: remove this in version 1.0.0
@@ -112,7 +112,7 @@ export class RawApiService {
           }
           if (header.payload > 0) {
             const payload = buffer.slice(this.headerLength, this.headerLength + header.payload).toString('utf8')
-            console.log('Extracted payload', payload)
+            // console.log('Extracted payload', payload)
             response = { header, payload }
             break
           } else {
@@ -121,31 +121,12 @@ export class RawApiService {
           }
         }
         resolve(response)
-        // if (response.header.ret < 0) {
-        //   reject(new Error(response.header.ret.toString()))
-        // }
-        // resolve(response)
       })
 
       // receive data
       socket.on('data', (buffer: Buffer) => {
         buffers.push(buffer)
-
-        // buffer = Buffer.concat([buffer, data])
-        // let j: number = 0
-        // const chunk: number = 4
-        // const header: any = {}
-        // for (let i = 0; i < 24; i += chunk) {
-        //   const tmp = data.subarray(i, i + chunk)
-        //   const value = this.ntohl(tmp)
-        //   header[this.headers[j]] = value
-        //   j++
-        // }
-        // response = {
-        //   header,
-        //   payload: data.subarray(24).toString('utf8'),
-        // }
-        console.log(c(this), `send path(${path}) ondata len(${buffer.byteLength})`)
+        // console.log(c(this), `send path(${path}) ondata len(${buffer.byteLength})`)
       })
       // send stuff
       socket.connect(this.profileService.profile.owServerPort, this.profileService.profile.owServerHost, () => {
