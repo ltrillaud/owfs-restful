@@ -1,5 +1,8 @@
 {
   "files.exclude": {
+    "src/**/*.d.ts": {
+      "when": "$(basename).ts"
+    },
     "src/**/*.js": {
       "when": "$(basename).ts"
     },
@@ -15,7 +18,7 @@
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
-    "[typescript]": {
-    "editor.defaultFormatter": "dprint.dprint",
+  "[typescript]": {
+    "editor.defaultFormatter": "dprint.dprint"
   }
 }

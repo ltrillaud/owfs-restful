@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { Authorized, Body, Get, JsonController, Param, Post, Put } from 'routing-controllers'
+import { Authorized, Body, Get, JsonController, NotFoundError, Param, Post, Put } from 'routing-controllers'
 import { Service } from 'typedi'
 
 import { c } from '../console'
@@ -24,9 +24,12 @@ export class CronApiController {
   }
 
   @Get('/:id')
-  async list(@Param('id') id: string): Promise<Cron> {
+  async get(@Param('id') id: string): Promise<Cron> {
     const now = new Date().toISOString()
     console.log(c(this), `GET cron(${id}) @ ${now}`)
+    if (!this.cronApiService.has(id)) {
+      throw (new NotFoundError(`cron(${id}) doesn't exist`))
+    }
     return await this.cronApiService.getOne(id)
   }
 
@@ -43,6 +46,9 @@ export class CronApiController {
   async put(@Param('id') id: string, @Body() body: IWriteRequest): Promise<boolean> {
     const now = new Date().toISOString()
     console.log(c(this), `PUT cron(${id}) @ ${now} with body`, body)
+    if (!this.cronApiService.has(id)) {
+      throw (new NotFoundError(`cron(${id}) doesn't exist`))
+    }
     return await this.cronApiService.putOne(id, body)
   }
 }

@@ -1,6 +1,6 @@
-import { IBaseProfile } from './profile-model'
 import { isMainThread } from 'worker_threads'
 import { c } from '../console'
+import { IBaseProfile } from './profile-model'
 
 export class ProfileBaseService<P extends IBaseProfile> {
   constructor(public name: string, public profile: P) {
@@ -28,7 +28,7 @@ export class ProfileBaseService<P extends IBaseProfile> {
         console.log(c(this), `profile (${key})=(${JSON.stringify(val)})`)
       }
     } else {
-      console.log(c(this), `reload profile for worker`)
+      console.log(c(this), 'reload profile for worker')
     }
   }
 

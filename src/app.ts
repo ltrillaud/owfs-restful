@@ -43,7 +43,7 @@ class AppService {
     this.app = routingCtrl.createExpressServer({
       controllers: [RootApiController, RawApiController, AplApiController, CronApiController, WeatherApiController],
       cors: {
-        origin: '*',
+        origin: true,
       },
       authorizationChecker: async (action: Action, roles: string[]) => {
         // allow if header authorization is set

@@ -1,4 +1,4 @@
-import { Authorized, Body, Get, JsonController, Param, Put } from 'routing-controllers'
+import { Authorized, Body, Get, JsonController, NotFoundError, Param, Put } from 'routing-controllers'
 import { Service } from 'typedi'
 import { c } from '../console'
 import { AplApiService, IApplianceResponse, IAppliancesResponse } from './apl-api-service'
@@ -25,6 +25,9 @@ export class AplApiController {
   async list(@Param('apl') apl: string): Promise<IApplianceResponse> {
     const now = new Date().toISOString()
     console.log(c(this), `GET apl(${apl}) @ ${now}`)
+    if (!this.aplApiService.has(apl)) {
+      throw (new NotFoundError(`apl(${apl}) doesn't exist`))
+    }
     return await this.aplApiService.getOne(apl)
   }
 
@@ -32,6 +35,9 @@ export class AplApiController {
   async write(@Param('apl') apl: string, @Body() body: IWriteRequest): Promise<any[]> {
     const now = new Date().toISOString()
     console.log(c(this), `PUT apl(${apl}) @ ${now} with body`, body)
+    if (!this.aplApiService.has(apl)) {
+      throw (new NotFoundError(`apl(${apl}) doesn't exist`))
+    }
     return await this.aplApiService.appliances[apl].update(body)
   }
 }

@@ -77,6 +77,10 @@ export class AplApiService {
     return result
   }
 
+  public has(apl: string): boolean {
+    return Object.hasOwnProperty.call(this.appliances, apl)
+  }
+
   public async getOne(apl: string): Promise<IApplianceResponse> {
     const result: IApplianceResponse = {
       appliance: this.appliances[apl].type,

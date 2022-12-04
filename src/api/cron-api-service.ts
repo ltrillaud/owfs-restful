@@ -52,7 +52,7 @@ export interface CronsResponse {
 @Service()
 export class CronApiService {
   cronPath = './cron.json'
-  crons: Cron[] = []
+  crons: CronsResponse = {}
 
   constructor(
     private readonly aplApiService: AplApiService,
@@ -63,7 +63,11 @@ export class CronApiService {
     console.log(c(this), `handle cron id(${key}) @ ${new Date().toISOString()}`)
 
     for (const action of cron.actions) {
-      await this.aplApiService.appliances[action.apl].update({ value: action.value })
+      if (Object.prototype.hasOwnProperty.call(this.aplApiService.appliances, action.apl)) {
+        await this.aplApiService.appliances[action.apl].update({ value: action.value })
+      } else {
+        console.log(`      cronApiServ.ts handler apl(${action.apl}) doesn't exist`)
+      }
     }
 
     if (cron.schedule.sunStep !== 'none') {
@@ -87,7 +91,7 @@ export class CronApiService {
       )
       cron.job?.reschedule(rule)
       next = cron.job?.nextInvocation()
-      console.log(c(this), `job(${key}) rechedule on ${next?.toLocaleString}`)
+      console.log(c(this), `job(${key}) rechedule on ${next?.toLocaleString()}`)
     }
   }
 
@@ -114,6 +118,10 @@ export class CronApiService {
       const next = cron.job.nextInvocation()
       console.log(c(this), `setup arm id(${key}) next(${next.toLocaleString()})`)
     }
+  }
+
+  has(id: string): boolean {
+    return Object.hasOwnProperty.call(this.crons, id)
   }
 
   getAll(): CronsResponse {
