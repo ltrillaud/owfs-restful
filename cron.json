@@ -71,7 +71,7 @@
   "startNightHeater": {
     "schedule": {
       "sunStep": "none",
-      "hour": "3",
+      "hour": "2",
       "minute": "30"
     },
     "actions": [
@@ -81,26 +81,6 @@
       },
       {
         "apl": "R",
-        "value": "C"
-      }
-    ]
-  },
-  "startHeaterAmandine": {
-    "schedule": {
-      "sunStep": "none",
-      "dayOfWeek": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
-      "hour": "17",
-      "minute": "30"
-    },
-    "actions": [
-      {
-        "apl": "M",
         "value": "C"
       }
     ]
@@ -118,6 +98,66 @@
       },
       {
         "apl": "R",
+        "value": "E"
+      }
+    ]
+  },
+  "startHeaterMaureen": {
+    "schedule": {
+      "sunStep": "none",
+      "hour": "17",
+      "minute": "30"
+    },
+    "actions": [
+      {
+        "apl": "M",
+        "value": "C"
+      }
+    ]
+  },
+  "stopHeaterMaureen": {
+    "schedule": {
+      "sunStep": "none",
+      "hour": "22",
+      "minute": "0"
+    },
+    "actions": [
+      {
+        "apl": "M",
+        "value": "E"
+      }
+    ]
+  },
+  "startHeaterEtage": {
+    "schedule": {
+      "sunStep": "none",
+      "hour": "6",
+      "minute": "0"
+    },
+    "actions": [
+      {
+        "apl": "M",
+        "value": "C"
+      },
+      {
+        "apl": "A",
+        "value": "C"
+      }
+    ]
+  },
+  "stopHeaterEtage": {
+    "schedule": {
+      "sunStep": "none",
+      "hour": "7",
+      "minute": "30"
+    },
+    "actions": [
+      {
+        "apl": "M",
+        "value": "E"
+      },
+      {
+        "apl": "A",
         "value": "E"
       }
     ]
