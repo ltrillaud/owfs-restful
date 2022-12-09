@@ -1,6 +1,6 @@
 {
   "name": "owfs-restful",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "OWFS Restful server written in Typescript",
   "main": "src/app.ts",
   "license": "MIT",

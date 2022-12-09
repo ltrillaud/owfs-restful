@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://github.com/ltrillaud/owfs-restful/compare/v1.6.0...v1.6.1) (2022-12-09)
+
+
+### Bug Fixes
+
+* **npm:** force default regisrty ([baf0004](https://github.com/ltrillaud/owfs-restful/commit/baf000447b12baf930c9b279e6c2b0c8c5132eb1))
+* **npm:** restore default registry ([5d21d45](https://github.com/ltrillaud/owfs-restful/commit/5d21d45d442caf6ada2188dbfb0f16eac207c172))
+
 ## [1.6.0](https://github.com/ltrillaud/owfs-restful/compare/v1.5.2...v1.6.0) (2022-12-09)
 
 
