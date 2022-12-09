@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/ltrillaud/owfs-restful/compare/v1.5.2...v1.6.0) (2022-12-09)
+
+
+### Features
+
+* **wheather:** add sun moon calcs ([b4057ed](https://github.com/ltrillaud/owfs-restful/commit/b4057ed8aef79580260420d270ed9538e06e3022))
+
+
+### Bug Fixes
+
+* **app:** implement notFoundError ([f4d2588](https://github.com/ltrillaud/owfs-restful/commit/f4d2588df281ecfbf18fffcd24abbbfb0faa7737))
+* **cron:** change cron ([17e1958](https://github.com/ltrillaud/owfs-restful/commit/17e195895ec5e433dd2d44e1060bb95a49b45677))
+* **cron:** close all shutters ([cf7a6e6](https://github.com/ltrillaud/owfs-restful/commit/cf7a6e6a7eea68e483a6776ba60b393da2f076aa))
+* **cron:** fix reschedule ([ee1cd51](https://github.com/ltrillaud/owfs-restful/commit/ee1cd51c25ac92b8cfa9d38e847c55295e3d38c5))
+* **cron:** implement getOne ([53a43d2](https://github.com/ltrillaud/owfs-restful/commit/53a43d2c24bac4925e2cd7faa6d633223921ba2c))
+
 ### [1.5.2](https://github.com/ltrillaud/owfs-restful/compare/v1.5.1...v1.5.2) (2022-11-22)
 
 
