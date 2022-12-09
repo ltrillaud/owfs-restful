@@ -1,7 +1,8 @@
 import { Authorized, Get, JsonController } from 'routing-controllers'
 import { Service } from 'typedi'
+
 import { c } from '../console'
-import { WeatherApiService } from './weather-api-service'
+import { Moon, Sun, WeatherApiService } from './weather-api-service'
 
 export interface IWriteRequest {
   value: string
@@ -19,5 +20,15 @@ export class WeatherApiController {
     const now = new Date().toISOString()
     console.log(c(this), `GET apl(all) @ ${now}`)
     return await this.weatherApiService.getAll()
+  }
+
+  @Get('/sun')
+  getSun(): Sun {
+    return this.weatherApiService.getSun()
+  }
+
+  @Get('/moon')
+  getMoon(): Moon {
+    return this.weatherApiService.getMoon()
   }
 }
