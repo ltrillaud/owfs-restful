@@ -5,6 +5,5 @@ src/**/*.js.map
 src/**/*.d.ts
 src/profiles/home.ts
 npm-debug.log
-./yarn.lock
 ./yarn-error.log
 *.tgz
