@@ -24,13 +24,13 @@ export class CronApiController {
   }
 
   @Get('/:id')
-  async get(@Param('id') id: string): Promise<Cron> {
+  get(@Param('id') id: string): Cron {
     const now = new Date().toISOString()
     console.log(c(this), `GET cron(${id}) @ ${now}`)
     if (!this.cronApiService.has(id)) {
       throw (new NotFoundError(`cron(${id}) doesn't exist`))
     }
-    return await this.cronApiService.getOne(id)
+    return this.cronApiService.getOne(id)
   }
 
   @Post()

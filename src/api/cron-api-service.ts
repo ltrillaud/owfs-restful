@@ -133,8 +133,8 @@ export class CronApiService {
     return out
   }
 
-  async getOne(id: string): Promise<Cron> {
-    return this.crons[0]
+  getOne(id: string): Cron {
+    return this.crons[id]
   }
 
   async putOne(id: string, body: any): Promise<boolean> {
