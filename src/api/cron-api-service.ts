@@ -59,8 +59,9 @@ export class CronApiService {
     private readonly profileService: ProfileService,
   ) {}
 
-  private static async handler(this: CronApiService, key: string, cron: Cron): Promise<void> {
+  private static async handler(this: CronApiService, key: string): Promise<void> {
     console.log(c(this), `handle cron id(${key}) @ ${new Date().toISOString()}`)
+    const cron = this.crons[key]
 
     for (const action of cron.actions) {
       if (Object.prototype.hasOwnProperty.call(this.aplApiService.appliances, action.apl)) {
@@ -89,9 +90,12 @@ export class CronApiService {
         date.getSeconds(),
         cron.schedule.tz,
       )
-      cron.job?.reschedule(rule)
-      next = cron.job?.nextInvocation()
-      console.log(c(this), `job(${key}) rechedule on ${next?.toLocaleString()}`)
+
+      setTimeout(() => { // don't reschedule inside the handler, it doesn't work
+        const done = cron.job?.reschedule(rule)
+        next = cron.job?.nextInvocation()
+        console.log(c(this), `job(${key}) rechedule on ${next?.toLocaleString()} result(${done})`)
+      })
     }
   }
 
@@ -114,7 +118,7 @@ export class CronApiService {
         rule.minute = date.getMinutes()
       }
 
-      cron.job = scheduleJob(key, rule, CronApiService.handler.bind(this, key, cron))
+      cron.job = scheduleJob(key, rule, CronApiService.handler.bind(this, key))
       const next = cron.job.nextInvocation()
       console.log(c(this), `setup arm id(${key}) next(${next.toLocaleString()})`)
     }
