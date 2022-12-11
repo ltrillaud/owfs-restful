@@ -138,7 +138,9 @@ export class CronApiService {
   }
 
   getOne(id: string): Cron {
-    return this.crons[id]
+    // job isn't serializable
+    const { job, ...cron } = this.crons[id]
+    return cron
   }
 
   async putOne(id: string, body: any): Promise<boolean> {
