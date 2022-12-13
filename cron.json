@@ -71,7 +71,7 @@
   "startNightHeater": {
     "schedule": {
       "sunStep": "none",
-      "hour": "2",
+      "hour": "1",
       "minute": "30"
     },
     "actions": [
