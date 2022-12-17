@@ -1,8 +1,8 @@
+import { Response } from 'express'
 import * as prom from 'prom-client'
+import { ContentType, Get, JsonController, Res } from 'routing-controllers'
 import { Service } from 'typedi'
 
-import { Response } from 'express'
-import { ContentType, Get, JsonController, Res } from 'routing-controllers'
 import { IRootResult, RootApiService } from './root-api-service'
 
 /**
