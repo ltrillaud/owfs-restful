@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.1](https://github.com/ltrillaud/owfs-restful/compare/v1.7.0...v1.7.1) (2022-12-17)
+
+
+### Bug Fixes
+
+* **cron:** change cron library ([47a8af2](https://github.com/ltrillaud/owfs-restful/commit/47a8af28ec006b2d92604beeae3bfd8c45912bd5))
+
 ## [1.7.0](https://github.com/ltrillaud/owfs-restful/compare/v1.6.1...v1.7.0) (2022-12-17)
 
 
