@@ -1,5 +1,14 @@
+import {
+  DayOfTheMonthRange,
+  DayOfTheWeekRange,
+  fieldsToExpression,
+  HourRange,
+  MonthRange,
+  parseExpression,
+  SixtyRange,
+} from 'cron-parser'
 import { readFile } from 'fs/promises'
-import { Job, RecurrenceRule, RecurrenceSpecObjLit, scheduleJob } from 'node-schedule'
+import { schedule, ScheduledTask } from 'node-cron'
 import SunCalc from 'suncalc'
 import { Service } from 'typedi'
 
@@ -31,8 +40,18 @@ export type SunStep =
   | 'nadir' //         00:49 darkest moment of the night, sun is in the lowest position
   | 'none' //          --:-- mark to don't use sunStep
 
-export interface Schedule extends RecurrenceSpecObjLit {
+export interface CronFields {
+  second: SixtyRange[]
+  minute: SixtyRange[]
+  hour: HourRange[]
+  dayOfMonth: DayOfTheMonthRange[]
+  month: MonthRange[]
+  dayOfWeek: DayOfTheWeekRange[]
+}
+
+export interface Schedule {
   sunStep: SunStep
+  cronFields: CronFields
 }
 
 export interface Action {
@@ -42,7 +61,8 @@ export interface Action {
 export interface Cron {
   schedule: Schedule
   actions: Action[]
-  job?: Job
+  job?: ScheduledTask
+  cronExp?: string
 }
 
 export interface CronsResponse {
@@ -59,10 +79,7 @@ export class CronApiService {
     private readonly profileService: ProfileService,
   ) {}
 
-  private static async handler(this: CronApiService, key: string): Promise<void> {
-    console.log(c(this), `handle cron id(${key}) @ ${new Date().toISOString()}`)
-    const cron = this.crons[key]
-
+  private async handler(key: string, cron: Cron): Promise<void> {
     for (const action of cron.actions) {
       if (Object.prototype.hasOwnProperty.call(this.aplApiService.appliances, action.apl)) {
         await this.aplApiService.appliances[action.apl].update({ value: action.value })
@@ -72,30 +89,26 @@ export class CronApiService {
     }
 
     if (cron.schedule.sunStep !== 'none') {
-      // reschedule this job outside this callback
-      let next = cron.job?.nextInvocation()
+      const interval = parseExpression(cron.cronExp!)
+      const ts = interval.next().getTime()
+      const next = new Date(ts)
       const times = SunCalc.getTimes(
-        next!,
+        next,
         this.profileService.profile.location.latitude,
         this.profileService.profile.location.longitude,
       )
       const date = new Date(times[cron.schedule.sunStep])
-      const rule = new RecurrenceRule(
-        cron.schedule.year,
-        cron.schedule.month,
-        cron.schedule.date,
-        cron.schedule.dayOfWeek,
-        date.getHours(),
-        date.getMinutes(),
-        date.getSeconds(),
-        cron.schedule.tz,
-      )
-
-      setTimeout(() => { // don't reschedule inside the handler, it doesn't work
-        const done = cron.job?.reschedule(rule)
-        next = cron.job?.nextInvocation()
-        console.log(c(this), `job(${key}) rechedule on ${next?.toLocaleString()} result(${done})`)
+      const fields = { ...interval.fields } // fileds are immutable
+      fields.hour = [date.getHours() as HourRange]
+      fields.minute = [date.getMinutes() as SixtyRange]
+      fields.second = [date.getSeconds() as SixtyRange]
+      const nextInterval = fieldsToExpression(fields)
+      cron.cronExp = nextInterval.stringify()
+      cron.job?.stop()
+      cron.job = schedule(cron.cronExp, () => {
+        void this.handler(key, cron)
       })
+      console.log(c(this), `job(${key}) rechedule on ${date.toLocaleString()}`)
     }
   }
 
@@ -109,18 +122,24 @@ export class CronApiService {
 
     // create a schedule for each cron entries
     for (const [key, cron] of Object.entries(this.crons)) {
-      const { sunStep, ...rule } = { ...cron.schedule }
       if (cron.schedule.sunStep !== 'none') { // // sun based hour / min
         const location = this.profileService.profile.location
         const times = SunCalc.getTimes(new Date(), location.latitude, location.longitude)
         const date = new Date(times[cron.schedule.sunStep])
-        rule.hour = date.getHours()
-        rule.minute = date.getMinutes()
+        cron.schedule.cronFields.hour = [date.getHours() as HourRange]
+        cron.schedule.cronFields.minute = [date.getMinutes() as SixtyRange]
       }
 
-      cron.job = scheduleJob(key, rule, CronApiService.handler.bind(this, key))
-      const next = cron.job.nextInvocation()
-      console.log(c(this), `setup arm id(${key}) next(${next.toLocaleString()})`)
+      const fullInterval = parseExpression('* * * * * *')
+      const fields = { ...fullInterval.fields, ...cron.schedule.cronFields }
+      const interval = fieldsToExpression(fields)
+      cron.cronExp = interval.stringify()
+
+      cron.job = schedule(cron.cronExp, () => {
+        void this.handler(key, cron)
+      })
+      const next = interval.next().toString()
+      console.log(c(this), `setup arm id(${key}) next(${next})`)
     }
   }
 
