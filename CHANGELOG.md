@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.2](https://github.com/ltrillaud/owfs-restful/compare/v1.7.1...v1.7.2) (2022-12-17)
+
+
+### Bug Fixes
+
+* **app:** better logs ([786ce30](https://github.com/ltrillaud/owfs-restful/commit/786ce30756044fedbe89770db8b9952610023e4a))
+
 ### [1.7.1](https://github.com/ltrillaud/owfs-restful/compare/v1.7.0...v1.7.1) (2022-12-17)
 
 
