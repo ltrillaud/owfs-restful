@@ -1,4 +1,5 @@
 import { IWriteRequest } from '../../api/apl-api-controller'
+import { c } from '../../console'
 import { IDeviceReadResponse } from '../devices/base.device'
 import { BaseAppliance } from './base.appliance'
 
@@ -6,6 +7,7 @@ export type ShutterActionType = 'O' | 'C'
 
 export class ShutterAppliance extends BaseAppliance {
   public async read(): Promise<{ [index: string]: IDeviceReadResponse }> {
+    console.log(c(this), `apl(${this.key}) read`)
     const result: { [index: string]: IDeviceReadResponse } = {}
     for (const key of Object.keys(this.devices)) {
       // no need to read pio with shutter
@@ -15,6 +17,7 @@ export class ShutterAppliance extends BaseAppliance {
   }
 
   public async update(body: IWriteRequest): Promise<any[]> {
+    console.log(c(this), `apl(${this.key}) update val(${body.value})`)
     let action: ShutterActionType
     switch (body.value) {
       case 'O':

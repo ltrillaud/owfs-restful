@@ -80,6 +80,10 @@ export class CronApiService {
   ) {}
 
   private async handler(key: string, cron: Cron): Promise<void> {
+    const now = new Date()
+    console.log(`      cronApiServ.ts handler key(${key}) @ ${now.toISOString()}`)
+
+    // trigger actions based on cron
     for (const action of cron.actions) {
       if (Object.prototype.hasOwnProperty.call(this.aplApiService.appliances, action.apl)) {
         await this.aplApiService.appliances[action.apl].update({ value: action.value })
@@ -88,23 +92,31 @@ export class CronApiService {
       }
     }
 
+    // reschedule if based on sunlight
     if (cron.schedule.sunStep !== 'none') {
+      // get the date of the next event
       const interval = parseExpression(cron.cronExp!)
       const ts = interval.next().getTime()
       const next = new Date(ts)
+
+      // get the time of the sun step
       const times = SunCalc.getTimes(
         next,
         this.profileService.profile.location.latitude,
         this.profileService.profile.location.longitude,
       )
       const date = new Date(times[cron.schedule.sunStep])
+
+      // override the time in the cron fields
       const fields = { ...interval.fields } // fileds are immutable
       fields.hour = [date.getHours() as HourRange]
       fields.minute = [date.getMinutes() as SixtyRange]
       fields.second = [date.getSeconds() as SixtyRange]
+
+      // abd override the cron with the new schedule
       const nextInterval = fieldsToExpression(fields)
       cron.cronExp = nextInterval.stringify()
-      cron.job?.stop()
+      cron.job!.stop()
       cron.job = schedule(cron.cronExp, () => {
         void this.handler(key, cron)
       })

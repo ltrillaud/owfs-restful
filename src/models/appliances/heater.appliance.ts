@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { IWriteRequest } from '../../api/apl-api-controller'
+import { c } from '../../console'
 import { BaseDevice, IDeviceReadResponse } from '../devices/base.device'
 import { BaseAppliance } from './base.appliance'
 
@@ -12,6 +13,8 @@ export class HeaterAppliance extends BaseAppliance {
   private shortInterval: NodeJS.Timer | null = null
 
   public async read(): Promise<{ [index: string]: IDeviceReadResponse }> {
+    console.log(c(this), `apl(${this.key}) read`)
+
     const result: { [index: string]: IDeviceReadResponse } = {}
     for (const key of Object.keys(this.devices)) {
       // no need to read pio with shutter
@@ -21,6 +24,8 @@ export class HeaterAppliance extends BaseAppliance {
   }
 
   public async update(body: IWriteRequest): Promise<any[]> {
+    console.log(c(this), `apl(${this.key}) update val(${body.value})`)
+
     if (Object.prototype.hasOwnProperty.call(this.devices, 'PIO')) {
       const device = this.devices.PIO
 

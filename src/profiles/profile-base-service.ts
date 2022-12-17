@@ -23,7 +23,7 @@ export class ProfileBaseService<P extends IBaseProfile> {
     }
 
     if (isMainThread) {
-      const excludedKeys = ['ca']
+      const excludedKeys = ['ca', 'jwtSecret', 'appliance2proxy']
       for (const [key, val] of Object.entries(this.profile).filter(([_key, _]) => !excludedKeys.includes(_key))) {
         console.log(c(this), `profile (${key})=(${JSON.stringify(val)})`)
       }

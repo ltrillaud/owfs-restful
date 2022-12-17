@@ -51,16 +51,16 @@ export class AplApiService {
       const appliance = val.appliance
       switch (appliance) {
         case 'sensor':
-          this.appliances[key] = new SensorAppliance(val)
+          this.appliances[key] = new SensorAppliance(key, val)
           break
         case 'heater':
-          this.appliances[key] = new HeaterAppliance(val)
+          this.appliances[key] = new HeaterAppliance(key, val)
           break
         case 'shutter':
-          this.appliances[key] = new ShutterAppliance(val)
+          this.appliances[key] = new ShutterAppliance(key, val)
           break
         case 't1fo':
-          this.appliances[key] = new T1foAppliance(val)
+          this.appliances[key] = new T1foAppliance(key, val)
           break
         default:
           console.warn('appliances.ts unknow proxy(' + appliance + ')')

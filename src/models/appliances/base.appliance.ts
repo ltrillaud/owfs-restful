@@ -4,10 +4,12 @@ import { BaseDevice, IDeviceReadResponse } from '../devices/base.device'
 import { OwfsDevice } from '../devices/owfs/owfs.device'
 
 export abstract class BaseAppliance {
+  public key: string
   public type: string
   protected devices: { [index: string]: BaseDevice } = {}
 
-  constructor(options: IAppliance) {
+  constructor(key: string, options: IAppliance) {
+    this.key = key
     this.type = options.appliance
 
     for (const [key, device] of Object.entries(options.devices)) {
@@ -20,22 +22,22 @@ export abstract class BaseAppliance {
   }
 
   public async create(): Promise<any[]> {
-    return await Promise.resolve(['not yet implemented'])
+    return ['not yet implemented']
   }
 
   public async read(): Promise<{ [index: string]: IDeviceReadResponse }> {
     const result: { [index: string]: IDeviceReadResponse } = {}
     for (const key of Object.keys(this.devices)) {
-      result[key] = await Promise.resolve({ family: 'none', value: 'not yet implemented' })
+      result[key] = { family: 'none', value: 'not yet implemented' }
     }
     return result
   }
 
   public async update(body: IWriteRequest): Promise<any[]> {
-    return await Promise.resolve(['not yet implemented'])
+    return ['not yet implemented']
   }
 
   public async delete(): Promise<any[]> {
-    return await Promise.resolve(['not yet implemented'])
+    return ['not yet implemented']
   }
 }
