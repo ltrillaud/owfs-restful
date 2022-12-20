@@ -157,44 +157,6 @@
       }
     ]
   },
-  "startHeaterParent": {
-    "schedule": {
-      "sunStep": "none",
-      "cronFields": {
-        "hour": [
-          18
-        ],
-        "minute": [
-          0
-        ]
-      }
-    },
-    "actions": [
-      {
-        "apl": "P",
-        "value": "C"
-      }
-    ]
-  },
-  "stopHeaterParent": {
-    "schedule": {
-      "sunStep": "none",
-      "cronFields": {
-        "hour": [
-          20
-        ],
-        "minute": [
-          0
-        ]
-      }
-    },
-    "actions": [
-      {
-        "apl": "P",
-        "value": "E"
-      }
-    ]
-  },
   "startHeaterEtage": {
     "schedule": {
       "sunStep": "none",
